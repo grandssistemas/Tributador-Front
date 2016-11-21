@@ -1,9 +1,6 @@
-define(['apiLocations'], function (APILocation) {
-
-    TaxationGroupService.$inject = ['GumgaRest'];
-
-    function TaxationGroupService(GumgaRest) {
-        var service = new GumgaRest(APILocation.apiLocation + '/api/taxationgroup');
+angular.module('app.taxsettings.services')
+    .service('TaxationGroupService', ['GumgaRest','apiLocation',function(GumgaRest,apiLocation){
+var service = new GumgaRest(apiLocation + '/api/taxationgroup');
 
         service.saveValiding = function (entity) {
             if(!entity.id) {
@@ -52,7 +49,4 @@ define(['apiLocations'], function (APILocation) {
         };
 
         return service;
-    }
-
-    return TaxationGroupService;
-});
+    }]);

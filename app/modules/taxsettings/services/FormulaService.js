@@ -1,11 +1,6 @@
-define(['apiLocations'], function (APILocation) {
-
-    FormulaService.$inject = ['GumgaRest'];
-    function FormulaService(GumgaRest) {
-        var service = new GumgaRest(APILocation.apiLocation + '/api/formula');
+angular.module('app.taxsettings.services')
+    .service('FormulaService', ['GumgaRest','apiLocation',function(GumgaRest,apiLocation){
+        var service = new GumgaRest(apiLocation + '/api/formula');
 
         return service;
-    }
-
-    return FormulaService;
-});
+    }]);

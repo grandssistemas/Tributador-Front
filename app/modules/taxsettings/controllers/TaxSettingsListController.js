@@ -1,7 +1,6 @@
-define([], function () {
-
-    TaxSettingsListController.$inject = ['TaxationGroupService', '$scope', 'gumgaController'];
-    function TaxSettingsListController(TaxationGroupService, $scope, gumgaController) {
+angular.module('app.taxsettings.controllers')
+        .controller('TaxSettingsListController',['TaxationGroupService', '$scope', 'gumgaController',
+        function(TaxationGroupService, $scope, gumgaController) {
         gumgaController.createRestMethods($scope,TaxationGroupService,'taxationGroup');
         $scope.content = {};
         $scope.page = 1;
@@ -36,8 +35,5 @@ define([], function () {
         $scope.taxationGroup.on('deleteSuccess', function(){
             $scope.taxationGroup.execute('get');
         });
-    }
-
-    return TaxSettingsListController;
-
-});
+  
+}]);

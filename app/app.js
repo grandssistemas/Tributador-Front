@@ -6,7 +6,8 @@ angular.module('taxsettings.core', [
     , 'ui.utils.masks'
     , 'datePicker'
     , 'app.stock'
-    , 'taxsettings.core'
+    , 'app.taxsettings'
+    , 'tributador.templates'
     , 'buddy.core'
     , 'operationtype.core'
     , 'product.core'
@@ -19,6 +20,6 @@ angular.module('taxsettings.core', [
                         id: 1
                     },
                     url: '/taxsettings',
-                    templateUrl: 'app/modules/taxsettings/views/base.html'
+                    templateUrl: 'modules/taxsettings/views/base.html'
                 })
     });

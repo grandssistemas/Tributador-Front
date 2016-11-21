@@ -1,7 +1,6 @@
-define(['angular'], function (angular) {
-
-    ModalConflitoController.$inject = ['entity','values','$scope','$uibModalInstance'];
-    function ModalConflitoController(entity,values,$scope,$uibModalInstance) {
+angular.module('app.taxsettings.controllers')
+        .controller('ModalConflitoController',['entity','values','$scope','$uibModalInstance',
+        function(entity,values,$scope,$uibModalInstance) {
 
         entity        = angular.copy(entity);
         $scope.values = angular.copy(values);
@@ -81,10 +80,4 @@ define(['angular'], function (angular) {
                     }).length > 0;
             });
         }
-
-
-    }
-
-    return ModalConflitoController;
-
-});
+}]);

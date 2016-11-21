@@ -1,6 +1,5 @@
-define(['angular'], function (angular) {
-
-    TaxSettingsFormController.$inject = [
+angular.module('app.taxsettings.controllers')
+        .controller('TaxSettingsFormController',[
         'TaxationGroupService',
         'MensagemService',
         'JuridicaService',
@@ -14,8 +13,7 @@ define(['angular'], function (angular) {
         '$scope',
         '$timeout',
         '$uibModal',
-        'gumgaController'];
-    function TaxSettingsFormController(TaxationGroupService,
+        'gumgaController',function(TaxationGroupService,
                                        MensagemService,
                                        JuridicaService,
                                        OperationTypeService,
@@ -1006,10 +1004,5 @@ define(['angular'], function (angular) {
                 icms.CSOSN !== 'NAO_TRIBUTADA_400' &&
                 icms.CST !== 'NAO_TRIBUTADA_41' &&
                 icms.CST !== 'NAO_TRIBUTADA_41_ICMSST';
-        };
-
-
-    }
-
-    return TaxSettingsFormController;
-});
+        };        
+}]);
