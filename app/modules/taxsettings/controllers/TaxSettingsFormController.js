@@ -632,7 +632,7 @@ angular.module('app.taxsettings.controllers')
             });
             $uibModal.open({
                        size: 'lg',
-                templateUrl: 'app/modules/taxsettings/views/modalConflito.html',
+                templateUrl: 'modules/taxsettings/views/modalConflito.html',
                 controller: 'ModalConflitoController',
                     resolve: {
                                 values: function () {
