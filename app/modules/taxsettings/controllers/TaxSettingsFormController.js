@@ -13,6 +13,7 @@ angular.module('app.taxsettings.controllers')
         '$scope',
         '$timeout',
         '$uibModal',
+        '$rootScope',
         'gumgaController',function(TaxationGroupService,
                                        MensagemService,
                                        JuridicaService,
@@ -26,6 +27,7 @@ angular.module('app.taxsettings.controllers')
                                        $scope,
                                        $timeout,
                                        $uibModal,
+                                       $rootScope,
                                        gumgaController) {
 
         gumgaController.createRestMethods($scope, TaxationGroupService, 'taxationGroup');
@@ -75,8 +77,8 @@ angular.module('app.taxsettings.controllers')
         $scope.cfopList                    = [];
         $scope.stateOriginConflicts        = [];
         $scope.stateDestinationsConflicts  = [];
-        $scope.personGroupConflicts         = [];
-        $scope.productGroupConflicts        = [];
+        $scope.personGroupConflicts        = [];
+        $scope.productGroupConflicts       = [];
         $scope.operationConflicts          = [];
         if($scope.entity.id){
             $scope.openTaxation            = true;
@@ -617,6 +619,7 @@ angular.module('app.taxsettings.controllers')
             if (cofins.CST) {
                 entity.taxationCOFINS = mountCofins(cofins);
             }
+            $rootScope.$emit('hideNextErrorMessage');
             TaxationGroupService.saveValiding(entity).then(doSave, doErr)
         };
 
