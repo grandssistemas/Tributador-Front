@@ -20,6 +20,6 @@ angular.module('taxsettings.core', [
                         id: 1
                     },
                     url: '/taxsettings',
-                    templateUrl: 'base.html'
+                    templateUrl: 'baseTributador.html'
                 })
     });
