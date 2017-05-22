@@ -23,18 +23,13 @@
                     <div class="col-md-12" style="margin-top:1%">
                         <gumga-list data="taxationGroup.data"
                                     configuration="conf"
-                                    class="table-bordered"></gumga-list>
-                    </div>
-                    <div class="col-md-12">
-                        <ul uib-pagination ng-model="taxationGroup.page"
-                                        items-per-page="taxationGroup.pageSize"
-                                        total-items="taxationGroup.count"
-                                        ng-change="taxationGroup.methods.get(taxationGroup.page)"
-                                        previous-text="<< Anterior"
-                                        next-Text="Próximo >>"
-                                        first-text="«"
-                                        last-text="»">
-                        </ul>
+                                    class="table-striped"
+                                    sort="taxationGroup.methods.sort(field, dir)"
+                                    page-size="taxationGroup.pageSize"
+                                    count="taxationGroup.count"
+                                    page-model="taxationGroup.page"
+                                    max-height="400px"
+                                    on-page-change="taxationGroup.methods.get(page, pageSize)"></gumga-list>
                     </div>
                 </div>
             </div>
