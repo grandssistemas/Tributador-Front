@@ -1063,15 +1063,29 @@
                     <div class="ibox-content" ng-show="showIPI">
                         <div class="row container-fluid">
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <label>CST</label>
                                     <select name="cstipi" id="cstipi" ng-model="ipi.CST"
                                             class="form-control"
                                             ng-options="obj.key as obj.label for obj in cstipi"></select>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
+                                    <label>Cód. Enquadramento legal do IPI</label>
+                                    <gumga-many-to-one
+                                            value="ipi.enquadramentoIpi"
+                                            search-method="searchEnquadramento(param)"
+                                            class="gmd"
+                                            field="descricao"
+                                            display-info="false"
+                                            async="true">
+                                        <match>
+                                            <div>{{match.model.codigo}} - {{match.model.descricao}}
+                                            </div>
+                                        </match>
+                                    </gumga-many-to-one>
+                                </div>
+                                <div class="col-md-4">
                                     <label>Mensagem</label>
-
                                     <gumga-many-to-one
                                             value="ipi.mensagem"
                                             search-method="getMensagem(param,'IPI')"
