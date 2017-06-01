@@ -8,6 +8,9 @@ angular.module('app.taxsettings.controllers')
         $scope.conf = {
             columns : 'tribute,titleParameterization,button',
             selection : 'single',
+            materialTheme: true,
+            itemsPerPage: [5, 10, 25, 50, 100],
+            title:'Listagem de Tributos',
             columnsConfig : [
                 {
                     name: 'tribute',
