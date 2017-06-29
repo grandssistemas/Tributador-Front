@@ -9,6 +9,8 @@ angular.module('app.taxsettings.controllers')
             columns : 'tribute,titleParameterization,button',
             selection : 'single',
             materialTheme: true,
+            activeLineColor: '#cccccc',
+            hoverLineColor: '#f5f5f5',
             itemsPerPage: [5, 10, 25, 50, 100],
             title:'Listagem de Tributos',
             columnsConfig : [
