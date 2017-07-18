@@ -2,8 +2,6 @@ angular.module('app.taxsettings.controllers')
         .controller('TaxSettingsListController',['TaxationGroupService', '$scope', 'gumgaController',
         function(TaxationGroupService, $scope, gumgaController) {
         gumgaController.createRestMethods($scope,TaxationGroupService,'taxationGroup');
-        $scope.content = {};
-        $scope.page = 1;
 
         $scope.conf = {
             columns : 'tribute,titleParameterization,button',
@@ -36,9 +34,9 @@ angular.module('app.taxsettings.controllers')
         };
 
         $scope.taxationGroup.execute('reset');
-        $scope.taxationGroup.execute('get');
+        $scope.taxationGroup.methods.getLatestOperation();
         $scope.taxationGroup.on('deleteSuccess', function(){
-            $scope.taxationGroup.execute('get');
+            $scope.taxationGroup.methods.getLatestOperation();
         });
   
 }]);
