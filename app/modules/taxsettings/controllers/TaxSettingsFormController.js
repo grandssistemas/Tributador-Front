@@ -754,20 +754,20 @@ angular.module('app.taxsettings.controllers')
 					obj.motDesICMS = icms.motDesICMS;
 				}
 
-				if (icms.cst === 'NAO_TRIBUTADA_41_ICMSST') {
+				if (icms.CST === 'NAO_TRIBUTADA_41_ICMSST') {
 					obj.vBCSTRet = icms.vBCSTRet;
 					obj.vBCSTDest = icms.vBCSTDest;
 					obj.vICMSSTDest = icms.vICMSSTDest;
 					obj.vICMSSTRet = icms.vICMSSTRet;
 				}
 
-				if (icms.cst === 'DIFERIMENTO_51') {
+				if (icms.CST === 'DIFERIMENTO_51') {
 					obj.pDif = icms.pDif;
 					obj.vICMSDif = icms.vICMSDif;
 					obj.vICMSOp = icms.vICMSOp;
 				}
 
-				if (icms.cst === 'COBRADO_ANTERIORMENTE_POR_ST_60') {
+				if (icms.CST === 'COBRADO_ANTERIORMENTE_POR_ST_60') {
 					obj.vBCSTRet = icms.vBCSTRet;
 					obj.vICMSSTRet = icms.vICMSSTRet;
 				}
