@@ -2,7 +2,7 @@ angular.module('app.taxsettings.controllers')
 	.controller('TaxSettingsFormController', [
 		'TaxationGroupService',
 		'MensagemService',
-		'JuridicaService',
+		'CompanyService',
 		'OperationTypeService',
 		'PersonGroupService',
 		'ProductGroupService',
@@ -18,7 +18,7 @@ angular.module('app.taxsettings.controllers')
 		'GumgaAlert',
 		'gumgaController', function (TaxationGroupService,
 		                             MensagemService,
-		                             JuridicaService,
+		                             CompanyService,
 		                             OperationTypeService,
 		                             PersonGroupService,
 		                             ProductGroupService,
@@ -89,7 +89,7 @@ angular.module('app.taxsettings.controllers')
 				$scope.configOpen = false;
 			}
 
-			JuridicaService.getCurrentCompany().then(function (data) {
+			CompanyService.getCurrentCompany().then(function (data) {
 				$scope.icmsNormal = data.data.crt === 'REGIME_NORMAL';
 				if ($scope.icmsNormal) {
 					$scope.tribute = ['ICMS', 'PIS', 'COFINS', 'IPI'];
