@@ -3,7 +3,7 @@ let modalConflito = require('../views/modalConflito.html');
 TaxSettingsFormController.$inject = [
     'TaxationGroupService',
     'MensagemService',
-    'JuridicaService',
+    'CompanyService',
     'OperationTypeService',
     'PersonGroupService',
     'ProductGroupService',
@@ -20,7 +20,7 @@ TaxSettingsFormController.$inject = [
     'gumgaController'];
 function TaxSettingsFormController(TaxationGroupService,
                                    MensagemService,
-                                   JuridicaService,
+                                   CompanyService,
                                    OperationTypeService,
                                    PersonGroupService,
                                    ProductGroupService,
@@ -91,19 +91,19 @@ function TaxSettingsFormController(TaxationGroupService,
         $scope.configOpen = false;
     }
 
-    JuridicaService.getCurrentCompany().then(function (data) {
-        $scope.icmsNormal = data.data.crt === 'REGIME_NORMAL';
-        if ($scope.icmsNormal) {
-            $scope.tribute = ['ICMS', 'PIS', 'COFINS', 'IPI'];
-        } else {
-            $scope.tribute = ['ICMS Simples', 'PIS', 'COFINS', 'IPI'];
-            $scope.icms.CST = '';
-        }
-    });
-    OperationTypeService.all().then(function (data) {
-        $scope.operationTypesList = data.data.values;
-        $timeout(function () {
-            $scope.entity.operationTypes = entity.data.operationTypes || [];
+			CompanyService.getCurrentCompany().then(function (data) {
+				$scope.icmsNormal = data.data.crt === 'REGIME_NORMAL';
+				if ($scope.icmsNormal) {
+					$scope.tribute = ['ICMS', 'PIS', 'COFINS', 'IPI'];
+				} else {
+					$scope.tribute = ['ICMS Simples', 'PIS', 'COFINS', 'IPI'];
+					$scope.icms.CST = '';
+				}
+			});
+			OperationTypeService.all().then(function (data) {
+				$scope.operationTypesList = data.data.values;
+				$timeout(function () {
+					$scope.entity.operationTypes = entity.data.operationTypes || [];
 
             $scope.entity.operationTypes = $scope.entity.operationTypes.map(function (data) {
                 return $scope.operationTypesList.filter(function (value) {
@@ -756,25 +756,25 @@ function TaxSettingsFormController(TaxationGroupService,
             obj.motDesICMS = icms.motDesICMS;
         }
 
-        if (icms.cst === 'NAO_TRIBUTADA_41_ICMSST') {
-            obj.vBCSTRet = icms.vBCSTRet;
-            obj.vBCSTDest = icms.vBCSTDest;
-            obj.vICMSSTDest = icms.vICMSSTDest;
-            obj.vICMSSTRet = icms.vICMSSTRet;
-        }
+				if (icms.CST === 'NAO_TRIBUTADA_41_ICMSST') {
+					obj.vBCSTRet = icms.vBCSTRet;
+					obj.vBCSTDest = icms.vBCSTDest;
+					obj.vICMSSTDest = icms.vICMSSTDest;
+					obj.vICMSSTRet = icms.vICMSSTRet;
+				}
 
-        if (icms.cst === 'DIFERIMENTO_51') {
-            obj.pDif = icms.pDif;
-            obj.vICMSDif = icms.vICMSDif;
-            obj.vICMSOp = icms.vICMSOp;
-        }
+				if (icms.CST === 'DIFERIMENTO_51') {
+					obj.pDif = icms.pDif;
+					obj.vICMSDif = icms.vICMSDif;
+					obj.vICMSOp = icms.vICMSOp;
+				}
 
-        if (icms.cst === 'COBRADO_ANTERIORMENTE_POR_ST_60') {
-            obj.vBCSTRet = icms.vBCSTRet;
-            obj.vICMSSTRet = icms.vICMSSTRet;
-        }
-        return obj;
-    }
+				if (icms.CST === 'COBRADO_ANTERIORMENTE_POR_ST_60') {
+					obj.vBCSTRet = icms.vBCSTRet;
+					obj.vICMSSTRet = icms.vICMSSTRet;
+				}
+				return obj;
+			}
 
     function mountIcmsSimples(icms) {
         var obj = {
