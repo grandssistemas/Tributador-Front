@@ -543,7 +543,7 @@ function TaxSettingsFormController(TaxationGroupService,
         if (icms.CSOSN) {
             switch (icms.CSOSN) {
                 case 'CREDITO_101':
-                    if (invalidAliquotaGroup(icms)) {
+                    if (icms.vCredICMSSN == null) {
                         return true
                     }
                     break;

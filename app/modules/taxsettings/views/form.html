@@ -603,7 +603,7 @@
                                             </div>
                                         </div>
                                         <div class="row " ng-if="showAliquotaGroup(icms)">
-                                            <div class="col-md-7">
+                                            <div class="col-md-7" ng-show="icms.CSOSN !== 'CREDITO_101'">
                                                 <label>Alíquota aplicável de cálculo do crédito</label>
                                                 <input type="text" class="form-control" ui-percentage-mask
                                                        ng-model="icms.pCredSN"/>
