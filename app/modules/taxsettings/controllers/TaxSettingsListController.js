@@ -1,44 +1,43 @@
-angular.module('app.taxsettings.controllers')
-        .controller('TaxSettingsListController',['TaxationGroupService', '$scope', 'gumgaController',
-        function(TaxationGroupService, $scope, gumgaController) {
-        gumgaController.createRestMethods($scope,TaxationGroupService,'taxationGroup');
-        $scope.content = {};
-        $scope.page = 1;
+TaxSettingsListController.$inject = ['TaxationGroupService', '$scope', 'gumgaController'];
+function TaxSettingsListController(TaxationGroupService, $scope, gumgaController) {
+    gumgaController.createRestMethods($scope, TaxationGroupService, 'taxationGroup');
 
-        $scope.conf = {
-            columns : 'tribute,titleParameterization,button',
-            selection : 'single',
-            materialTheme: true,
-            activeLineColor: '#cccccc',
-            hoverLineColor: '#f5f5f5',
-            itemsPerPage: [5, 10, 25, 50, 100],
-            title:'Listagem de Tributos',
-            columnsConfig : [
-                {
-                    name: 'tribute',
-                    size: 'col-md-3',
-                    title: '<strong gumga-translate-tag="taxsettings.tribute">Tribute</strong>',
-                    content: '<div>{{$value.taxationICMS?\' ICMS\':\'\'}}{{$value.taxationIPI?\' IPI\':\'\'}}{{$value.taxationPIS?\' PIS\':\'\'}}{{$value.taxationCOFINS?\' COFINS\':\'\'}}</div>'
-                },
-                {
-                    name: 'titleParameterization',
-                    size: 'col-md-8',
-                    title: '<strong gumga-translate-tag="taxsettings.titleparameterization">Title parameterization</strong>',
-                    content: '<div>{{$value.name}}</div>'
-                },
-                {
-                    name: 'button',
-                    size: 'col-md-1',
-                    title: ' '
-                    ,content : '<button type="button" ui-sref="taxsettings.edit({id: $value.id})" uib-tooltip="Editar" grands-button="edit-sm"></button>'
-                }
-            ]
-        };
+    $scope.conf = {
+        columns: 'tribute,titleParameterization,button',
+        selection: 'single',
+        materialTheme: true,
+        activeLineColor: '#cccccc',
+        hoverLineColor: '#f5f5f5',
+        itemsPerPage: [5, 10, 25, 50, 100],
+        title: 'Listagem de Tributos',
+        columnsConfig: [
+            {
+                name: 'tribute',
+                size: 'col-md-3',
+                title: '<strong gumga-translate-tag="taxsettings.tribute">Tribute</strong>',
+                content: '<div>{{$value.taxationICMS?\' ICMS\':\'\'}}{{$value.taxationIPI?\' IPI\':\'\'}}{{$value.taxationPIS?\' PIS\':\'\'}}{{$value.taxationCOFINS?\' COFINS\':\'\'}}</div>'
+            },
+            {
+                name: 'titleParameterization',
+                size: 'col-md-8',
+                title: '<strong gumga-translate-tag="taxsettings.titleparameterization">Title parameterization</strong>',
+                content: '<div>{{$value.name}}</div>'
+            },
+            {
+                name: 'button',
+                size: 'col-md-1',
+                title: ' '
+                ,
+                content: '<button type="button" ui-sref="taxsettings.edit({id: $value.id})" uib-tooltip="Editar" grands-button="edit-sm"></button>'
+            }
+        ]
+    };
 
-        $scope.taxationGroup.execute('reset');
-        $scope.taxationGroup.execute('get');
-        $scope.taxationGroup.on('deleteSuccess', function(){
-            $scope.taxationGroup.execute('get');
-        });
-  
-}]);
+    $scope.taxationGroup.execute('reset');
+    $scope.taxationGroup.methods.getLatestOperation();
+    $scope.taxationGroup.on('deleteSuccess', function () {
+        $scope.taxationGroup.methods.getLatestOperation();
+    });
+
+}
+module.exports = TaxSettingsListController;
