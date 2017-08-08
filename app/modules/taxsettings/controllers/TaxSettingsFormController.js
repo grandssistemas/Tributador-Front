@@ -38,7 +38,6 @@ function TaxSettingsFormController(TaxationGroupService,
 
     gumgaController.createRestMethods($scope, TaxationGroupService, 'taxationGroup');
     $scope.taxationGroup.execute('reset');
-
     $scope.entity = angular.copy(entity.data);
     $scope.pis = $scope.entity.taxationPIS || {};
     $scope.icms = $scope.entity.taxationICMS || {};
@@ -91,20 +90,20 @@ function TaxSettingsFormController(TaxationGroupService,
         $scope.configOpen = false;
     }
 
-			CompanyService.getCurrentCompany().then(function (data) {
-				$scope.icmsNormal = data.data.crt === 'REGIME_NORMAL';
-				if ($scope.icmsNormal) {
-					$scope.tribute = ['ICMS', 'PIS', 'COFINS', 'IPI'];
-				} else {
-					$scope.tribute = ['ICMS Simples', 'PIS', 'COFINS', 'IPI'];
-					$scope.icms.CST = '';
-				}
-			});
-			OperationTypeService.all().then(function (data) {
-				$scope.operationTypesList = data.data.values;
-				$timeout(function () {
-					$scope.entity.operationTypes = entity.data.operationTypes || [];
+    CompanyService.getCurrentCompany().then(function (data) {
+        $scope.icmsNormal = data.data.crt === 'REGIME_NORMAL';
+        if ($scope.icmsNormal) {
+            $scope.tribute = ['ICMS', 'PIS', 'COFINS', 'IPI'];
+        } else {
+            $scope.tribute = ['ICMS Simples', 'PIS', 'COFINS', 'IPI'];
+            $scope.icms.CST = '';
+        }
+    });
 
+    OperationTypeService.all().then(function (data) {
+        $scope.operationTypesList = data.data.values;
+        $timeout(function () {
+            $scope.entity.operationTypes = entity.data.operationTypes || [];
             $scope.entity.operationTypes = $scope.entity.operationTypes.map(function (data) {
                 return $scope.operationTypesList.filter(function (value) {
                     return value.id === data.id;
@@ -112,6 +111,38 @@ function TaxSettingsFormController(TaxationGroupService,
             })
         });
     });
+
+    $scope.clearPage = function() {
+        $scope.pis = {};
+        $scope.icms = {};
+        $scope.cofins = {};
+        $scope.ipi = {};
+        $scope.entity.operationTypes = [];
+        $scope.entity.origins = [];
+        $scope.entity.destinations = [];
+        $scope.entity.personGroups = [];
+        $scope.entity.productGroups = [];
+        $scope.entity.name = "";
+        $scope.openTaxation = false;
+        $scope.openPanel();
+        $scope.stateOriginConflicts = [];
+        $scope.personGroupConflicts = [];
+        $scope.productGroupConflicts = [];
+        $scope.operationConflicts = [];
+        $scope.entity.taxationPIS = {};
+        $scope.entity.taxationICMS = {};
+        $scope.entity.taxationCOFINS = {};
+        $scope.entity.taxationIPI = {};
+    };
+
+    $scope.replicateTaxSetting = function(){
+        var newEntity = angular.copy($scope.entity);
+        delete newEntity.id;
+
+        TaxationGroupService.newEntity = newEntity;
+        $state.go('taxsettings.insert');
+    };
+
     PersonGroupService.all().then(function (data) {
         $scope.personGroupList = data.data.values;
         $timeout(function () {
@@ -209,19 +240,12 @@ function TaxSettingsFormController(TaxationGroupService,
         ]
     };
     $scope.openPanel = function (panel) {
-        if (panel === 'tribute' || panel === 'operation' || panel === 'origin') {
-            $scope.configOpen = true;
-            $scope.openTaxation = false;
-            $scope.step2 = false;
-        } else {
-            $scope.configOpen = true;
-            $scope.openTaxation = false;
-            $scope.step2 = true;
-        }
+        $scope.configOpen = true;
+        $scope.openTaxation = false;
     };
 
     if (!$scope.entity.id) {
-        $scope.openPanel('tribute');
+        $scope.openPanel();
     }
 
     $scope.blockBtnTributos = function (entity) {
@@ -593,10 +617,13 @@ function TaxSettingsFormController(TaxationGroupService,
         (!$scope.icmsNormal && invalidIcmsSimples(icms)) ||
         invalidPis(pis) ||
         invalidCofins(cofins) ||
-        invalidIpi(ipi));
-
+        invalidIpi(ipi) ||
+        entity.name.length === 0);
     };
-    $scope.update = function (entity, icms, pis, cofins, ipi) {
+    $scope.update = function (entity, icms, pis, cofins, ipi, disabled) {
+        if (disabled) {
+            return;
+        }
         entity.destinations = entity.destinations.map(mapEnum);
         entity.origins = entity.origins.map(mapEnum);
         delete entity.taxationIPI;
@@ -630,7 +657,26 @@ function TaxSettingsFormController(TaxationGroupService,
     };
 
     function doSave() {
-        $state.go('taxsettings.list');
+        if($state.current.name === "taxsettings.insert"){
+            swal({
+                    title: "Confirmação",
+                    text: "Deseja continuar inserindo?",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonClass: "btn-success",
+                    confirmButtonText: "Continuar",
+                    cancelButtonText: "Cancelar",
+                    closeOnConfirm: true,
+                    closeOnCancel: true
+                },
+                function(isConfirm) {
+                    if (!isConfirm) {
+                        $state.go('taxsettings.list');
+                    }
+                });
+        }else{
+            $state.go('taxsettings.list');
+        };
     }
 
     function doErr(err) {
@@ -662,7 +708,7 @@ function TaxSettingsFormController(TaxationGroupService,
         valueArr = valueArr || [];
         return valueArr.map(function (data) {
             return dtoArr.filter(function (value) {
-                return value.key === data;
+                return value.key === data || value.key === data.key;
             })[0]
         });
     }
