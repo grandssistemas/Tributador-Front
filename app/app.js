@@ -1,7 +1,7 @@
 require('./import-style');
 require('./import-modules');
 
-let base = require('./baseTributador.html');
+let base = '/baseGrandsComponents.html';
 
 module.exports = angular.module('taxsettings.core', [
     'ui.router',
