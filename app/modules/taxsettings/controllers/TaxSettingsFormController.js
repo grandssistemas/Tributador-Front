@@ -665,7 +665,7 @@ function TaxSettingsFormController(TaxationGroupService,
                     showCancelButton: true,
                     confirmButtonClass: "btn-success",
                     confirmButtonText: "Continuar",
-                    cancelButtonText: "Cancelar",
+                    cancelButtonText: "Não",
                     closeOnConfirm: true,
                     closeOnCancel: true
                 },
