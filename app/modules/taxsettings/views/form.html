@@ -8,7 +8,7 @@
             <div class="panel gmd">
                 <div class="panel-body" style="height: 160px">
                     <div class="row">
-                        <div class="col-md-2 col-md-offset-1 b-r" ng-click="openPanel()">
+                        <div class="col-md-2 col-md-offset-1 b-r" ng-click="openPanel('configOpen')">
                             <label gumga-translate-tag="taxsettings.operation" align="center" class="cursor-pointer">
                                 OPERATION</label>
                             <div class="list-5-scroll">
@@ -17,7 +17,7 @@
                                     - {{ot.name}}</label>
                             </div>
                         </div>
-                        <div class="col-md-2 b-r" ng-click="openPanel()">
+                        <div class="col-md-2 b-r" ng-click="openPanel('configOpen')">
                             <label gumga-translate-tag="taxsettings.origin" align="center" class="cursor-pointer">
                                 ORIGIN</label>
 
@@ -25,7 +25,7 @@
                                 <label ng-repeat="or in entity.origins track by $index" class="text-muted cursor-pointer">
                                     - {{or.label}}</label></div>
                         </div>
-                        <div class="col-md-2 b-r" ng-click="openPanel()">
+                        <div class="col-md-2 b-r" ng-click="openPanel('configOpen')">
                             <label gumga-translate-tag="taxsettings.destination" align="center" class="cursor-pointer">
                                 DESTINATION</label>
 
@@ -34,7 +34,7 @@
                                    class="text-muted cursor-pointer">- {{des.label}}</label>
                             </div>
                         </div>
-                        <div class="col-md-2 b-r" ng-click="openPanel()">
+                        <div class="col-md-2 b-r" ng-click="openPanel('configOpenNext')">
                             <label gumga-translate-tag="taxsettings.person" align="center" class="cursor-pointer">
                                 PERSON</label>
 
@@ -42,7 +42,7 @@
                                 <label ng-repeat="pg in entity.personGroups track by $index"
                                    class="text-muted cursor-pointer">- {{pg.name}}</label></div>
                         </div>
-                        <div class="col-md-2" ng-click="openPanel()">
+                        <div class="col-md-2" ng-click="openPanel('configOpenNext')">
                             <label gumga-translate-tag="taxsettings.product" align="center" class="cursor-pointer">
                                 PRODUCT</label>
 
@@ -64,7 +64,7 @@
                         <!--Passo 1-->
                         <div ng-hide="step2">
                             <!--Tipo de operação-->
-                            <div class="col-md-2 col-md-offset-1" align="center" style="font-size: 11px">
+                            <div class="col-md-3 col-md-offset-1" align="center" style="font-size: 11px">
                                 <h4 gumga-translate-tag="taxsettings.operation" class="b">OPERATION</h4>
                                 <div style="max-height: 282px; overflow-y: auto;">
                                     <gumga-list data="operationTypesList"
@@ -74,7 +74,7 @@
                                 </div>
                             </div>
                             <!--Origem-->
-                            <div class="col-md-2" align="center" style="font-size: 11px">
+                            <div class="col-md-3" align="center" style="font-size: 11px">
                                 <h4 gumga-translate-tag="taxsettings.origin" class="b">ORIGIN</h4>
 
                                 <div style="max-height: 282px; overflow-y: auto;">
@@ -84,7 +84,7 @@
                                 </div>
                             </div>
                             <!--Destino-->
-                            <div class="col-md-2" align="center" style="font-size: 11px">
+                            <div class="col-md-3" align="center" style="font-size: 11px">
                                 <h4 gumga-translate-tag="taxsettings.destination" class="b">DESTINATION</h4>
 
                                 <div style="max-height: 282px; overflow-y: auto;">
@@ -94,8 +94,28 @@
                                                 selected-values="entity.destinations"></gumga-list>
                                 </div>
                             </div>
+                            <div class="col-md-1">
+                                <button type="button" class="btn btn-primary btn-circle btn-lg form-control" style="margin-top: 140px;"
+                                        ng-click="openPanel('configOpenNext')">
+                                    <i class="fa fa-chevron-right fa-lg" style="margin-left: -3px;"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel gmd" ng-show="configOpenNext">
+                <div class="panel-body">
+                    <div class="row">
+                        <!--Passo 1-->
+                        <div ng-hide="step2">
+                            <div class="col-md-1">
+                                <button type="button" class="btn btn-primary btn-circle btn-lg form-control" style="margin-top: 70px;"
+                                        ng-click="openPanel('configOpen')">
+                                    <i class="fa fa-chevron-left fa-lg" style="margin-left: -3px;"></i></button>
+                            </div>
                             <!--Tipo de Pessoa-->
-                            <div class="col-md-2" align="center" style="font-size: 11px">
+                            <div class="col-md-3" align="center" style="font-size: 11px">
                                 <h4 gumga-translate-tag="taxsettings.person" class="b">PERSON</h4>
 
                                 <div style="max-height: 282px; overflow-y: auto;">
@@ -106,7 +126,7 @@
                                 </div>
                             </div>
                             <!--Tipo de Produto-->
-                            <div class="col-md-2" align="center" style="font-size: 11px">
+                            <div class="col-md-3" align="center" style="font-size: 11px">
                                 <h4 gumga-translate-tag="taxsettings.product" class="b">PRODUCT</h4>
 
                                 <div style="max-height: 282px; overflow-y: auto;">
@@ -119,8 +139,8 @@
 
                             <div class="col-md-1">
                                 <button type="button" class="btn btn-primary btn-circle btn-lg form-control"
-                                        uib-tooltip="Tributar" style="margin-top: 140px;"
-                                        ng-click="openTaxation = true; configOpen = false;"
+                                        uib-tooltip="Tributar" style="margin-top: 70px;"
+                                        ng-click="openPanel('openTaxation')"
                                         ng-disabled="blockBtnTributos(entity)">
                                     <i class="fa fa-calculator fa-lg" style="margin-left: -3px;"></i></button>
                             </div>
