@@ -243,7 +243,6 @@ function TaxSettingsFormController(TaxationGroupService,
     };
     $scope.openPanel = function (panel) {
         $scope.configOpen = (panel === 'configOpen');
-        $scope.configOpenNext = (panel === 'configOpenNext');
         $scope.openTaxation = (panel === 'openTaxation');
     };
 
