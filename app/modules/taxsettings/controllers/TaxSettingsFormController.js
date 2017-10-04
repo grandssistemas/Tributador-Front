@@ -56,6 +56,7 @@ function TaxSettingsFormController(TaxationGroupService,
     $scope.openTaxation = false;
     $scope.step1 = false;
     $scope.configOpen = false;
+    $scope.configOpenNext = false;
     $scope.mensagemICMSList = [];
     $scope.mensagemPISList = [];
     $scope.mensagemIPIList = [];
@@ -88,6 +89,7 @@ function TaxSettingsFormController(TaxationGroupService,
     if ($scope.entity.id) {
         $scope.openTaxation = true;
         $scope.configOpen = false;
+        $scope.configOpenNext = false;
     }
 
     CompanyService.getCurrentCompany().then(function (data) {
@@ -240,12 +242,12 @@ function TaxSettingsFormController(TaxationGroupService,
         ]
     };
     $scope.openPanel = function (panel) {
-        $scope.configOpen = true;
-        $scope.openTaxation = false;
+        $scope.configOpen = (panel === 'configOpen');
+        $scope.openTaxation = (panel === 'openTaxation');
     };
 
     if (!$scope.entity.id) {
-        $scope.openPanel();
+        $scope.openPanel('configOpen');
     }
 
     $scope.blockBtnTributos = function (entity) {
