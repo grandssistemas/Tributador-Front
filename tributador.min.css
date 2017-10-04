@@ -4,6 +4,7 @@
 }
 .list-tax-option {
   width: 300px;
+  margin-left: 10px;
 }
 .list-tax-scroll {
   display: -webkit-inline-box;
