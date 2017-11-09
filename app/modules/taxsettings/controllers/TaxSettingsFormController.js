@@ -308,27 +308,27 @@ function TaxSettingsFormController(TaxationGroupService,
         });
     };
     $scope.getFormulaIcms = function (value) {
-        return FormulaService.getAdvancedSearch('lower(obj.name) like lower(\'%' + value + '%\') and obj.tariffType = br.com.codein.tributador.domain.model.tributador.enums.TariffType.ICMS').then(function (data) {
+        return FormulaService.getAdvancedSearch('lower(obj.name) like lower(\'%' + value + "%') and obj.tariffType = 'ICMS'").then(function (data) {
             return data.data.values;
         });
     };
     $scope.getFormulaPis = function (value) {
-        return FormulaService.getAdvancedSearch('lower(obj.name) like lower(\'%' + value + '%\') and obj.tariffType = br.com.codein.tributador.domain.model.tributador.enums.TariffType.PIS').then(function (data) {
+        return FormulaService.getAdvancedSearch('lower(obj.name) like lower(\'%' + value + "%\') and obj.tariffType = 'PIS'").then(function (data) {
             return data.data.values;
         });
     };
     $scope.getFormulaCofins = function (value) {
-        return FormulaService.getAdvancedSearch('lower(obj.name) like lower(\'%' + value + '%\') and obj.tariffType = br.com.codein.tributador.domain.model.tributador.enums.TariffType.COFINS').then(function (data) {
+        return FormulaService.getAdvancedSearch('lower(obj.name) like lower(\'%' + value + "%\') and obj.tariffType = 'COFINS'").then(function (data) {
             return data.data.values;
         });
     };
     $scope.getFormulaIpi = function (value) {
-        return FormulaService.getAdvancedSearch('lower(obj.name) like lower(\'%' + value + '%\') and obj.tariffType = br.com.codein.tributador.domain.model.tributador.enums.TariffType.IPI').then(function (data) {
+        return FormulaService.getAdvancedSearch('lower(obj.name) like lower(\'%' + value + "%') and obj.tariffType = 'IPI'").then(function (data) {
             return data.data.values;
         });
     };
     $scope.getMensagem = function (value, tribute) {
-        return MensagemService.getAdvancedSearch('lower(obj.name) like lower(\'%' + value + '%\') and obj.tariffType = br.com.codein.tributador.domain.model.tributador.enums.TariffType.' + tribute).then(function (data) {
+        return MensagemService.getAdvancedSearch('lower(obj.name) like lower(\'%' + value + "%') and obj.tariffType = '" + tribute+"'").then(function (data) {
             return data.data.values;
         });
     };
