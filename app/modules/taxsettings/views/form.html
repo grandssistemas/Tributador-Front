@@ -193,6 +193,37 @@
                                         </gumga-many-to-one>
                                     </div>
                                 </div>
+                                <div class="row m-t">
+                                    <div class="col-md-4">
+                                        <label>CFOP para referenciado</label>
+                                        <gumga-many-to-one
+                                                value="icms.cfopRef"
+                                                search-method="getCfopIcms(param)"
+                                                field="descricao"
+                                                async="true"
+                                                display-info="false"
+                                                editable="false">
+                                            <match>
+                                                <div>{{match.model.codigo}}</div>
+                                                <div>{{match.model.descricao}}</div>
+                                            </match>
+                                        </gumga-many-to-one>
+                                    </div>
+                                    <div class="col-md-4 col-md-offset-4">
+                                        <label>Mensagem para referenciado</label>
+                                        <gumga-many-to-one
+                                                value="icms.mensagemRef"
+                                                search-method="getMensagem(param,'ICMS')"
+                                                field="name"
+                                                async="true"
+                                                display-info="false"
+                                                editable="false">
+                                            <match>
+                                                <div>{{match.model.name}}</div>
+                                            </match>
+                                        </gumga-many-to-one>
+                                    </div>
+                                </div>
                                 <div class="row m-t" ng-show="icmsNormal">
                                     <div class="col-md-6">
                                         <div ng-hide="isIcmsAble(icms)">
