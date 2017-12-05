@@ -11,7 +11,9 @@
                                         <!--grands-button="delete" ng-disabled="selectedValues.length == 0"></button>-->
                             <!--</div>-->
                             <div class="col-md-offset-5 col-md-7">
-                                <gumga-query search="taxationGroup.methods.search(field, param)" advanced-search="taxationGroup.methods.advancedSearch(param)">
+                                <gumga-query search="taxationGroup.methods.searchWithGQuery(param)"
+                                             advanced-search="taxationGroup.methods.searchWithGQuery(param)"
+                                             use-gquery="true">
                                     <search-field field="name" label="{{'titleparameterization'|gumgaTranslate:'taxsettings'}}" select="true"></search-field>
                                     <advanced-search-field type="string" label="{{'titleparameterization'|gumgaTranslate:'taxsettings'}}" field="name"></advanced-search-field>
                                 </gumga-query>
