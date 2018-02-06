@@ -1062,7 +1062,7 @@ function TaxSettingsFormController(TaxationGroupService,
         return icms.CSOSN === 'CREDITO_COM_ST_201' ||
             icms.CSOSN === 'SEM_CREDITO_COM_ST_202' ||
             icms.CSOSN === 'RECEITA_BRUTA_COM_ST_203' ||
-            icms.CSOSN === 'ANTECIPACAO_ST_500' ||
+            icms.CSOSN === '' ||
             icms.CSOSN === 'OUTROS_900';
     };
     $scope.isFCPVisible = function (icms) {
