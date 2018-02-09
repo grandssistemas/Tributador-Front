@@ -770,7 +770,8 @@ function TaxSettingsFormController(TaxationGroupService,
             cfop: icms.cfop,
             mensagem: icms.mensagem,
             mensagemRef: icms.mensagemRef,
-            cfopRef: icms.cfopRef
+            cfopRef: icms.cfopRef,
+            pReducaoBase:icms.pReducaoBase
         };
 
         if (icms.CST === 'INTEGRALMENTE_00' || icms.CST === 'COBRANCA_ST_10' ||
@@ -833,7 +834,8 @@ function TaxSettingsFormController(TaxationGroupService,
             mensagem: icms.mensagem,
             CSOSN: icms.CSOSN,
             mensagemRef: icms.mensagemRef,
-            cfopRef: icms.cfopRef
+            cfopRef: icms.cfopRef,
+            pReducaoBase: icms.pReducaoBase
         };
 
         if (icms.CSOSN === 'CREDITO_101' ||
