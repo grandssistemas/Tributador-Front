@@ -604,7 +604,7 @@ function TaxSettingsFormController(TaxationGroupService,
     function invalidIcmsStRetidoAnterSimples(icms) {
         return (icms.vBCSTRet && !icms.vICMSSTRet) || (!icms.vBCSTRet && icms.vICMSSTRet);
     }
-
+entity
     function invalidBaseStSimples(icms) {
         return !icms.modBCST || !icms.vBCST || (icms.pICMSST == null) || !icms.vICMSST;
     }
@@ -620,7 +620,7 @@ function TaxSettingsFormController(TaxationGroupService,
         invalidPis(pis) ||
         invalidCofins(cofins) ||
         invalidIpi(ipi) ||
-        entity.name.length === 0);
+            (entity.name && entity.name.length === 0));
     };
     $scope.update = function (entity, icms, pis, cofins, ipi, disabled) {
         if (disabled) {
