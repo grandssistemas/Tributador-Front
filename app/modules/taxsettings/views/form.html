@@ -1,6 +1,7 @@
 <form name="forms" novalidate gumga-form>
     <div class="row" style="position: fixed; width: 101.7%; top: 50px; z-index: 100; font-size: 12px">
-        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-xs-offset-1 align-layout-panel cl-dark-primary text-uppercase" style="margin: 10px; margin-left: 130px">
+        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-xs-offset-1 align-layout-panel cl-dark-primary text-uppercase"
+             style="margin: 10px; margin-left: 130px">
             <label style="font-size: 24px" class="ng-binding">CADASTRO DE TRIBUTOS</label>
         </div>
         <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-xs-offset-1">
@@ -13,7 +14,7 @@
                                 OPERATION</label>
                             <div class="list-5-scroll">
                                 <label ng-repeat="ot in entity.operationTypes track by $index"
-                                   class="text-muted cursor-pointer">
+                                       class="text-muted cursor-pointer">
                                     - {{ot.name}}</label>
                             </div>
                         </div>
@@ -22,7 +23,8 @@
                                 ORIGIN</label>
 
                             <div class="list-5-scroll">
-                                <label ng-repeat="or in entity.origins track by $index" class="text-muted cursor-pointer">
+                                <label ng-repeat="or in entity.origins track by $index"
+                                       class="text-muted cursor-pointer">
                                     - {{or.label}}</label></div>
                         </div>
                         <div class="col-md-2 b-r" ng-click="openPanel('configOpen')">
@@ -31,7 +33,7 @@
 
                             <div class="list-5-scroll">
                                 <label ng-repeat="des in entity.destinations track by $index"
-                                   class="text-muted cursor-pointer">- {{des.label}}</label>
+                                       class="text-muted cursor-pointer">- {{des.label}}</label>
                             </div>
                         </div>
                         <div class="col-md-2 b-r" ng-click="openPanel('configOpen')">
@@ -40,7 +42,7 @@
 
                             <div class="list-5-scroll">
                                 <label ng-repeat="pg in entity.personGroups track by $index"
-                                   class="text-muted cursor-pointer">- {{pg.name}}</label></div>
+                                       class="text-muted cursor-pointer">- {{pg.name}}</label></div>
                         </div>
                         <div class="col-md-2" ng-click="openPanel('configOpen')">
                             <label gumga-translate-tag="taxsettings.product" align="center" class="cursor-pointer">
@@ -48,7 +50,7 @@
 
                             <div class="list-5-scroll">
                                 <label ng-repeat="pg in entity.productGroups track by $index"
-                                   class="text-muted cursor-pointer">- {{pg.name}}</label></div>
+                                       class="text-muted cursor-pointer">- {{pg.name}}</label></div>
                         </div>
                     </div>
                 </div>
@@ -118,7 +120,8 @@
                             </div>
                             <div>
                                 <button type="button" class="btn btn-primary btn-circle btn-lg form-control"
-                                        uib-tooltip="Tributar" style="margin-top: 127px;margin-left: 25px;margin-right: 10px;"
+                                        uib-tooltip="Tributar"
+                                        style="margin-top: 127px;margin-left: 25px;margin-right: 10px;"
                                         ng-click="openPanel('openTaxation')"
                                         ng-disabled="blockBtnTributos(entity)">
                                     <i class="fa fa-calculator fa-lg" style="margin-left: -3px;"></i></button>
@@ -133,7 +136,8 @@
                     <div class="row m-t">
                         <div class="col-md-12">
                             <gmd-input>
-                                <input type="text" class="form-control gmd" ng-model="entity.name" style="font-size: 20px"/>
+                                <input type="text" class="form-control gmd" ng-model="entity.name"
+                                       style="font-size: 20px"/>
                                 <span class="bar"></span>
                                 <label class="control-label" gumga-translate-tag="taxsettings.titleparameterization">Title
                                     parameterization</label>
@@ -142,7 +146,7 @@
                     </div>
                     <!--ICMS-->
                     <div class="panel gmd">
-                        <div align="left" class="panel-heading" >
+                        <div align="left" class="panel-heading">
                             <label class="btn-link"
                                    ng-click="showICMS = !showICMS" style="font-size: 14px"><i
                                     ng-class="{'fa fa-caret-down' :showICMS, 'fa fa-caret-right':!showICMS}"></i> <span>PARÂMETROS DA TRIBUTAÇÃO DO ICMS</span></label>
@@ -209,7 +213,15 @@
                                             </match>
                                         </gumga-many-to-one>
                                     </div>
-                                    <div class="col-md-4 col-md-offset-4">
+                                    <div class="col-md-4" ng-if="icms.CSOSN === 'ANTECIPACAO_ST_500'" style="margin-top: 17px;">
+                                        <gmd-input>
+                                            <input type="text" class="form-control gmd" ui-percentage-mask ng-model="icms.pReducaoBase"
+                                                   id="pReducaoBase">
+                                            <span class="bar"></span>
+                                            <label for="pReducaoBase" class="control-label">Redução da base de calculo</label>
+                                        </gmd-input>
+                                    </div>
+                                    <div class="col-md-4">
                                         <label>Mensagem para referenciado</label>
                                         <gumga-many-to-one
                                                 value="icms.mensagemRef"
@@ -612,7 +624,8 @@
                                                 <div class="row">
                                                     <div class="col-md-5 m-t container-fluid">
                                                         <label>Redução da BC ICMS</label>
-                                                        <input type="text" class="form-control" ng-model="icms.pRedBC" ui-percentage-mask/>
+                                                        <input type="text" class="form-control" ng-model="icms.pRedBC"
+                                                               ui-percentage-mask/>
                                                     </div>
                                                 </div>
                                             </div>
@@ -657,14 +670,14 @@
                                                 ICMS ST</h4>
                                         </div>
                                         <div ng-show="showIcmsStSimple(icms)">
-                                            <div class="row" >
+                                            <div class="row">
                                                 <div class="col-md-7">
                                                     <label>Modalidade Deter. da BC ICMS ST</label>
                                                     <select name="icmsmodBCST" ng-model="icms.modBCST"
                                                             class="form-control"
                                                             ng-options="modst.key as modst.label for modst in modeCalculationBaseSTList"></select>
                                                 </div>
-                                                <div class="col-md-5" >
+                                                <div class="col-md-5">
                                                     <label>Redução BC ICMS ST</label>
                                                     <input type="text" class="form-control" ui-percentage-mask
                                                            ng-model="icms.pRedBCST"/>
@@ -715,7 +728,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row" ng-show="icms.CSOSN === 'ANTECIPACAO_ST_500'">
+                                        <div class="row" ng-show="icms.CSOSN === ''">
                                             <div class="col-md-6">
                                                 <label>BC ICMS
                                                     ST

@@ -3,7 +3,7 @@ function TaxSettingsListController(TaxationGroupService, $scope, gumgaController
     gumgaController.createRestMethods($scope, TaxationGroupService, 'taxationGroup');
 
     $scope.conf = {
-        columns: 'tribute,titleParameterization,button',
+        columns: 'tribute,titleParameterization',
         selection: 'single',
         materialTheme: true,
         activeLineColor: '#cccccc',
@@ -22,13 +22,6 @@ function TaxSettingsListController(TaxationGroupService, $scope, gumgaController
                 size: 'col-md-8',
                 title: '<strong gumga-translate-tag="taxsettings.titleparameterization">Title parameterization</strong>',
                 content: '<div>{{$value.name}}</div>'
-            },
-            {
-                name: 'button',
-                size: 'col-md-1',
-                title: ' '
-                ,
-                content: '<button type="button" ui-sref="taxsettings.edit({id: $value.id})" uib-tooltip="Editar" grands-button="edit-sm"></button>'
             }
         ]
     };
