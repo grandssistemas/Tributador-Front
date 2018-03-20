@@ -1,4 +1,5 @@
 TaxationGroupService.$inject = ['GumgaRest', 'apiLocation'];
+
 function TaxationGroupService(GumgaRest, apiLocation) {
     var service = new GumgaRest(apiLocation + '/api/taxationgroup');
 
@@ -48,6 +49,11 @@ function TaxationGroupService(GumgaRest, apiLocation) {
         return this.extend('get', '/cofinscst')
     };
 
+    service.copyAndDeleteRecord = function (id) {
+        return this.extend('post', '/copyanddeleterecord/' + id)
+    };
+
     return service;
 }
+
 module.exports = TaxationGroupService;
