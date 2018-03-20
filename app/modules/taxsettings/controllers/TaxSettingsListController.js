@@ -2,14 +2,14 @@ TaxSettingsListController.$inject = ['TaxationGroupService', '$scope', 'gumgaCon
 function TaxSettingsListController(TaxationGroupService, $scope, gumgaController, SweetAlert, ConfigService) {
     gumgaController.createRestMethods($scope, TaxationGroupService, 'taxationGroup');
 
-    var GQueryBase = new GQuery()
-        .select("obj.name as name")
-        .select("obj.id as id")
-        .select("obj.oi as oi")
-        .select("obj.taxationCOFINS.id as taxationCOFINS")
-        .select("obj.taxationIPI.id as taxationIPI")
-        .select("obj.taxationPIS.id as taxationPIS")
-        .select("obj.taxationICMS.id as taxationICMS");
+    var GQueryBase = new GQuery();
+        // .select("obj.name as name")
+        // .select("obj.id as id")
+        // .select("obj.oi as oi")
+        // .select("obj.taxationCOFINS.id as taxationCOFINS")
+        // .select("obj.taxationIPI.id as taxationIPI")
+        // .select("obj.taxationPIS.id as taxationPIS")
+        // .select("obj.taxationICMS.id as taxationICMS");
 
     $scope.proxySearchWithGQuery = function (param) {
         $scope.taxationGroup.methods.searchWithGQuery(GQueryBase.and(param))

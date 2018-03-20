@@ -1184,7 +1184,7 @@
             <gmd-fab force-click="false" fixed opened="!fabs" style="z-index: 99">
                 <button class="bg-accent gmd-ripple"
                         type="button"
-                        ng-class="{ 'gmd-disabled' : blockBtnTributos(entity) || saveDisabled(entity,icms,pis,cofins,ipi) }"
+                        ng-class="{ 'gmd-disabled' : !validBuddy(entity.oi,entity.id) || blockBtnTributos(entity) || saveDisabled(entity,icms,pis,cofins,ipi) }"
                         ng-click="update(entity,icms,pis,cofins,ipi, blockBtnTributos(entity) || saveDisabled(entity,icms,pis,cofins,ipi))">
                     <span class="material-icons">check</span>
                 </button>
@@ -1193,15 +1193,15 @@
                         <span>Voltar</span>
                         <i class="material-icons gmd-ripple">keyboard_backspace</i>
                     </li>
-                    <li class="bg-primary" ng-click="clearPage()">
+                    <li class="bg-primary" ng-hide="!validBuddy(entity.oi,entity.id)" ng-click="clearPage()">
                         <span>Limpar</span>
                         <i class="material-icons gmd-ripple">delete_sweep</i>
                     </li>
-                    <li class="btn-danger" ng-hide="entity.id" ui-sref="taxsettings.list">
+                    <li class="btn-danger" ng-hide="!validBuddy(entity.oi,entity.id) || entity.id" ui-sref="taxsettings.list">
                         <span>Cancelar</span>
                         <i class="material-icons gmd-ripple">close</i>
                     </li>
-                    <li class="bg-primary" ng-show="entity.id" ng-click="replicateTaxSetting()">
+                    <li class="bg-primary" ng-hide="!validBuddy(entity.oi,entity.id)" ng-show="entity.id" ng-click="replicateTaxSetting()">
                         <span>Replicar</span>
                         <i class="material-icons gmd-ripple">content_copy</i>
                     </li>
