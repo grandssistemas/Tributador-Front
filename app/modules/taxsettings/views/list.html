@@ -31,7 +31,7 @@
                                     count="taxationGroup.count"
                                     page-model="page"
                                     max-height="400px"
-                                    on-page-change="taxationGroup.methods.get(page, pageSize)"></gumga-list>
+                                    on-page-change="taxationGroup.methods.searchWithGQuery(taxationGroup.lastGQuery, page, pageSize)"></gumga-list>
                     </div>
                 </div>
                 <gmd-fab force-click="false" fixed opened="selectedValues.length > 0">
