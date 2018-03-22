@@ -17,7 +17,10 @@ TaxSettingsFormController.$inject = [
     '$rootScope',
     'CodigoEnquadramentoIpiService',
     'GumgaAlert',
-    'gumgaController'];
+    'gumgaController',
+    'ConfigService',
+    'SweetAlert'];
+
 function TaxSettingsFormController(TaxationGroupService,
                                    MensagemService,
                                    CompanyService,
@@ -34,7 +37,9 @@ function TaxSettingsFormController(TaxationGroupService,
                                    $rootScope,
                                    CodigoEnquadramentoIpiService,
                                    GumgaAlert,
-                                   gumgaController) {
+                                   gumgaController,
+                                   ConfigService,
+                                   SweetAlert) {
 
     gumgaController.createRestMethods($scope, TaxationGroupService, 'taxationGroup');
     $scope.taxationGroup.execute('reset');
@@ -86,10 +91,23 @@ function TaxSettingsFormController(TaxationGroupService,
     $scope.personGroupConflicts = [];
     $scope.productGroupConflicts = [];
     $scope.operationConflicts = [];
+
     if ($scope.entity.id) {
         $scope.openTaxation = true;
         $scope.configOpen = false;
         $scope.configOpenNext = false;
+    }
+
+    $scope.validBuddy = function (oi, id) {
+        return ConfigService.validateBuddy(oi, id);
+    };
+
+    if (!$scope.validBuddy($scope.entity.oi, $scope.entity.id)){
+        SweetAlert.swal({
+            title: 'Atenção.',
+            text: 'Este registro que você está acessando é um registro publico, nenhuma alteração feita será salva.',
+            type: "warning"
+        });
     }
 
     CompanyService.getCurrentCompany().then(function (data) {
@@ -114,7 +132,7 @@ function TaxSettingsFormController(TaxationGroupService,
         });
     });
 
-    $scope.clearPage = function() {
+    $scope.clearPage = function () {
         $scope.pis = {};
         $scope.icms = {};
         $scope.cofins = {};
@@ -137,7 +155,7 @@ function TaxSettingsFormController(TaxationGroupService,
         $scope.entity.taxationIPI = {};
     };
 
-    $scope.replicateTaxSetting = function(){
+    $scope.replicateTaxSetting = function () {
         var newEntity = angular.copy($scope.entity);
         delete newEntity.id;
 
@@ -328,16 +346,16 @@ function TaxSettingsFormController(TaxationGroupService,
         });
     };
     $scope.getMensagem = function (value, tribute) {
-        return MensagemService.getAdvancedSearch('lower(obj.name) like lower(\'%' + value + "%') and obj.tariffType = '" + tribute+"'").then(function (data) {
+        return MensagemService.getAdvancedSearch('lower(obj.name) like lower(\'%' + value + "%') and obj.tariffType = '" + tribute + "'").then(function (data) {
             return data.data.values;
         });
     };
     $scope.isIpiAble = function (entity) {
         return !entity.CST ||
             (entity.CST !== 'ENTRADA_RECUPERACAO_CREDITO_00' &&
-            entity.CST !== 'OUTRAS_ENTRADAS_49' &&
-            entity.CST !== 'SAIDA_TRIBUTADA_50' &&
-            entity.CST !== 'OUTRAS_SAIDAS_99');
+                entity.CST !== 'OUTRAS_ENTRADAS_49' &&
+                entity.CST !== 'SAIDA_TRIBUTADA_50' &&
+                entity.CST !== 'OUTRAS_SAIDAS_99');
     };
     $scope.isPisAble = function (entity) {
         return !entity.CST ||
@@ -351,8 +369,8 @@ function TaxSettingsFormController(TaxationGroupService,
     $scope.isPisOperationTypeUnable = function (entity) {
         return entity.CST &&
             ($scope.isPisAble(entity) ||
-            entity.CST === 'OPERACAO_TRIBUTAVEL_01' ||
-            entity.CST === 'OPERACAO_TRIBUTAVEL_02');
+                entity.CST === 'OPERACAO_TRIBUTAVEL_01' ||
+                entity.CST === 'OPERACAO_TRIBUTAVEL_02');
     };
     $scope.isPisAliquotaAble = function (entity) {
         return $scope.isPisOperationTypeUnable(entity) ||
@@ -370,8 +388,8 @@ function TaxSettingsFormController(TaxationGroupService,
     $scope.isCofinsOperationTypeUnable = function (entity) {
         return entity.CST &&
             ($scope.isCofinsAble(entity) ||
-            entity.CST === 'OPERACAO_TRIBUTAVEL_01' ||
-            entity.CST === 'OPERACAO_TRIBUTAVEL_02');
+                entity.CST === 'OPERACAO_TRIBUTAVEL_01' ||
+                entity.CST === 'OPERACAO_TRIBUTAVEL_02');
     };
     $scope.isCofinsAliquotaAble = function (entity) {
         return $scope.isCofinsOperationTypeUnable(entity) || entity.calculationType === 'PORCENTAGEM';
@@ -604,7 +622,9 @@ function TaxSettingsFormController(TaxationGroupService,
     function invalidIcmsStRetidoAnterSimples(icms) {
         return (icms.vBCSTRet && !icms.vICMSSTRet) || (!icms.vBCSTRet && icms.vICMSSTRet);
     }
-entity
+
+    entity
+
     function invalidBaseStSimples(icms) {
         return !icms.modBCST || !icms.vBCST || (icms.pICMSST == null) || !icms.vICMSST;
     }
@@ -616,10 +636,10 @@ entity
 
     $scope.saveDisabled = function (entity, icms, pis, cofins, ipi) {
         return (($scope.icmsNormal && invalidIcmsNormal(icms)) ||
-        (!$scope.icmsNormal && invalidIcmsSimples(icms)) ||
-        invalidPis(pis) ||
-        invalidCofins(cofins) ||
-        invalidIpi(ipi) ||
+            (!$scope.icmsNormal && invalidIcmsSimples(icms)) ||
+            invalidPis(pis) ||
+            invalidCofins(cofins) ||
+            invalidIpi(ipi) ||
             (entity.name && entity.name.length === 0));
     };
     $scope.update = function (entity, icms, pis, cofins, ipi, disabled) {
@@ -659,7 +679,7 @@ entity
     };
 
     function doSave() {
-        if($state.current.name === "taxsettings.insert"){
+        if ($state.current.name === "taxsettings.insert") {
             swal({
                     title: "Confirmação",
                     text: "Deseja continuar inserindo?",
@@ -671,14 +691,15 @@ entity
                     closeOnConfirm: true,
                     closeOnCancel: true
                 },
-                function(isConfirm) {
+                function (isConfirm) {
                     if (!isConfirm) {
                         $state.go('taxsettings.list');
                     }
                 });
-        }else{
+        } else {
             $state.go('taxsettings.list');
-        };
+        }
+        ;
     }
 
     function doErr(err) {
@@ -771,7 +792,7 @@ entity
             mensagem: icms.mensagem,
             mensagemRef: icms.mensagemRef,
             cfopRef: icms.cfopRef,
-            pReducaoBase:icms.pReducaoBase
+            pReducaoBase: icms.pReducaoBase
         };
 
         if (icms.CST === 'INTEGRALMENTE_00' || icms.CST === 'COBRANCA_ST_10' ||
@@ -807,25 +828,25 @@ entity
             obj.motDesICMS = icms.motDesICMS;
         }
 
-				if (icms.CST === 'NAO_TRIBUTADA_41_ICMSST') {
-					obj.vBCSTRet = icms.vBCSTRet;
-					obj.vBCSTDest = icms.vBCSTDest;
-					obj.vICMSSTDest = icms.vICMSSTDest;
-					obj.vICMSSTRet = icms.vICMSSTRet;
-				}
+        if (icms.CST === 'NAO_TRIBUTADA_41_ICMSST') {
+            obj.vBCSTRet = icms.vBCSTRet;
+            obj.vBCSTDest = icms.vBCSTDest;
+            obj.vICMSSTDest = icms.vICMSSTDest;
+            obj.vICMSSTRet = icms.vICMSSTRet;
+        }
 
-				if (icms.CST === 'DIFERIMENTO_51') {
-					obj.pDif = icms.pDif;
-					obj.vICMSDif = icms.vICMSDif;
-					obj.vICMSOp = icms.vICMSOp;
-				}
+        if (icms.CST === 'DIFERIMENTO_51') {
+            obj.pDif = icms.pDif;
+            obj.vICMSDif = icms.vICMSDif;
+            obj.vICMSOp = icms.vICMSOp;
+        }
 
-				if (icms.CST === 'COBRADO_ANTERIORMENTE_POR_ST_60') {
-					obj.vBCSTRet = icms.vBCSTRet;
-					obj.vICMSSTRet = icms.vICMSSTRet;
-				}
-				return obj;
-			}
+        if (icms.CST === 'COBRADO_ANTERIORMENTE_POR_ST_60') {
+            obj.vBCSTRet = icms.vBCSTRet;
+            obj.vICMSSTRet = icms.vICMSSTRet;
+        }
+        return obj;
+    }
 
     function mountIcmsSimples(icms) {
         var obj = {
@@ -1040,8 +1061,8 @@ entity
         return {
             '2px solid red': function () {
                 return $scope.operationConflicts.filter(function (data) {
-                        return data.id === value.id;
-                    }).length > 0;
+                    return data.id === value.id;
+                }).length > 0;
             }
         }
     }
@@ -1080,4 +1101,5 @@ entity
         })
     };
 }
+
 module.exports = TaxSettingsFormController;
