@@ -22,8 +22,8 @@ function TaxSettingsListController(TaxationGroupService, $scope, gumgaController
     };
 
     $scope.getIcon = (value) => {
-        $scope.iconFabs = !value.oi ? "search" : "edit";
-        $scope.translateIcon = !value.oi ? "Vizualizar" : "Editar";
+        $scope.iconFabs = !$scope.validBuddy(value.oi,value.id) ? "search" : "edit";
+        $scope.translateIcon = !$scope.validBuddy(value.oi,value.id) ? "Vizualizar" : "Editar";
     };
 
     $scope.conf = {
@@ -70,8 +70,12 @@ function TaxSettingsListController(TaxationGroupService, $scope, gumgaController
         ]
     };
 
-    $scope.copyDeleteRecord = (id) => {
+    $scope.goToLastPage = () => {
+        let lastPage = Math.ceil($scope.taxationGroup.count / $scope.taxationGroup.pageSize);
+        $scope.taxationGroup.methods.get(lastPage, $scope.taxationGroup.pageSize);
+    };
 
+    $scope.copyDeleteRecord = (id) => {
         SweetAlert.swal({
                 title: 'Atenção.',
                 text: 'Após a cópia do registro o mesmo antigo será inativado para que não haja conflito de infomações. Deseja realmente fazer a cópia?',
@@ -85,6 +89,7 @@ function TaxSettingsListController(TaxationGroupService, $scope, gumgaController
             function (isConfirm) {
                 if (isConfirm) {
                     TaxationGroupService.copyAndDeleteRecord(id).then(function () {
+                        $scope.goToLastPage();
                     });
                     SweetAlert.swal("Pronto!", "Copiado com sucesso", "success");
                 }
