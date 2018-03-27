@@ -20,7 +20,7 @@ module.exports = angular.module('app.taxsettings', ['ui.router', 'app.taxsetting
                 controller: 'TaxSettingsFormController',
                 controllerAs: 'form',
                 data: {id: 3}, resolve: {
-                    entity: ['$stateParams', '$http', 'TaxationGroupService', '$q', function ($stateParams, $http, TaxationGroupService, $q) {
+                    entity: ['$http', 'TaxationGroupService', '$q', function ($http, TaxationGroupService, $q) {
                         var url = apiLocation + '/api/taxationgroup/new';
                         if(TaxationGroupService.newEntity){
                             return $q(function(resolve){
@@ -38,8 +38,8 @@ module.exports = angular.module('app.taxsettings', ['ui.router', 'app.taxsetting
                 templateUrl: form,
                 controller: 'TaxSettingsFormController',
                 data: {id: 3}, resolve: {
-                    entity: ['$stateParams', '$http', function ($stateParams, $http) {
-                        var url = apiLocation + '/api/taxationgroup/' + $stateParams.id;
+                    entity: ['$transition$', '$http', function ($transition$, $http) {
+                        var url = apiLocation + '/api/taxationgroup/' + $transition$.params().id;
                         return $http.get(url);
                     }]
                 }
