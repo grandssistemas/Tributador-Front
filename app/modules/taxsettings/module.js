@@ -8,13 +8,13 @@ let form = require('./views/form.html');
 module.exports = angular.module('app.taxsettings', ['ui.router', 'app.taxsettings.controllers', 'app.taxsettings.services', 'api.location'])
     .config(['$stateProvider', 'apiLocation', function ($stateProvider, apiLocation) {
         $stateProvider
-            .state('taxsettings.list', {
+            .state('app.taxsettings.list', {
                 url: '/list',
                 templateUrl: list,
                 controller: 'TaxSettingsListController',
                 data: {id: 2}
             })
-            .state('taxsettings.insert', {
+            .state('app.taxsettings.insert', {
                 url: '/insert',
                 templateUrl: form,
                 controller: 'TaxSettingsFormController',
@@ -33,7 +33,7 @@ module.exports = angular.module('app.taxsettings', ['ui.router', 'app.taxsetting
                     }]
                 }
             })
-            .state('taxsettings.edit', {
+            .state('app.taxsettings.edit', {
                 url: '/edit/:id',
                 templateUrl: form,
                 controller: 'TaxSettingsFormController',

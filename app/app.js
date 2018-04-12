@@ -19,11 +19,11 @@ module.exports = angular.module('taxsettings.core', [
 ])
     .config(function ($stateProvider) {
         $stateProvider
-            .state('taxsettings', {
+            .state('app.taxsettings', {
                 data: {
                     id: 1
                 },
                 url: '/taxsettings',
-                templateUrl: base
+                abstract: true
             })
     });
