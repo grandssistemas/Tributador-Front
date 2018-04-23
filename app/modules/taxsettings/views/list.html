@@ -41,7 +41,7 @@
                     </div>
                 </div>
                 <gmd-fab force-click="false" fixed opened="selectedValues.length > 0">
-                    <button class="bg-accent gmd-ripple" ui-sref="taxsettings.insert"
+                    <button class="bg-accent gmd-ripple" ui-sref="app.taxsettings.insert"
                             ng-if="selectedValues.length == 0">
                         <span class="material-icons">add</span>
                     </button>
@@ -56,13 +56,13 @@
                             <i class="material-icons gmd-ripple">delete</i>
                         </li>
                         <li class="btn-warning"
-                            ui-sref="taxsettings.edit({id: selectedValues[0].id})"
+                            ui-sref="app.taxsettings.edit({id: selectedValues[0].id})"
                             ng-class="{'gmd-invisible' : selectedValues.length == 0}">
                             <span>{{translateIcon}}</span>
                             <i class="material-icons gmd-ripple">{{iconFabs}}</i>
                         </li>
                         <li class="btn-primary"
-                            ui-sref="taxsettings.insert"
+                            ui-sref="app.taxsettings.insert"
                             ng-class="{'gmd-invisible' : selectedValues.length == 0}">
                             <span>Novo</span>
                             <i class="material-icons gmd-ripple">add</i>

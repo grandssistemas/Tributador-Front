@@ -160,7 +160,7 @@ function TaxSettingsFormController(TaxationGroupService,
         delete newEntity.id;
 
         TaxationGroupService.newEntity = newEntity;
-        $state.go('taxsettings.insert');
+        $state.go('app.taxsettings.insert');
     };
 
     PersonGroupService.all().then(function (data) {
@@ -693,11 +693,11 @@ function TaxSettingsFormController(TaxationGroupService,
                 },
                 function (isConfirm) {
                     if (!isConfirm) {
-                        $state.go('taxsettings.list');
+                        $state.go('app.taxsettings.list');
                     }
                 });
         } else {
-            $state.go('taxsettings.list');
+            $state.go('app.taxsettings.list');
         }
         ;
     }
