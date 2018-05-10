@@ -144,7 +144,6 @@ function TaxSettingsFormController(TaxationGroupService,
         $scope.entity.productGroups = [];
         $scope.entity.name = "";
         $scope.openTaxation = false;
-        $scope.openPanel();
         $scope.stateOriginConflicts = [];
         $scope.personGroupConflicts = [];
         $scope.productGroupConflicts = [];
@@ -259,14 +258,6 @@ function TaxSettingsFormController(TaxationGroupService,
             }
         ]
     };
-    $scope.openPanel = function (panel) {
-        $scope.configOpen = (panel === 'configOpen');
-        $scope.openTaxation = (panel === 'openTaxation');
-    };
-
-    if (!$scope.entity.id) {
-        $scope.openPanel('configOpen');
-    }
 
     $scope.blockBtnTributos = function (entity) {
         return entity.operationTypes.length === 0 ||
