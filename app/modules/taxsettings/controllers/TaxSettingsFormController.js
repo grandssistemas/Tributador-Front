@@ -120,6 +120,16 @@ function TaxSettingsFormController(TaxationGroupService,
 		});
 	});
 
+	$scope.isEqualArray = (arr, arr2) => angular.equals(arr, arr2);
+
+	$scope.addOrRemoveAll = (listEntityKey, listOption) => {
+		if ($scope.isEqualArray($scope.entity[listEntityKey], listOption)) {
+			$scope.entity[listEntityKey] = [];
+			return;
+		}
+		$scope.entity[listEntityKey] = listOption;
+	};
+
 	$scope.clearPage = function () {
 		$scope.pis = {};
 		$scope.icms = {};
