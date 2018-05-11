@@ -3,13 +3,11 @@
   overflow-y: auto;
 }
 .list-tax-option {
-  -webkit-box-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
+  -ms-flex: 1;
+      flex: 1;
   margin-left: 10px;
 }
 .list-tax-scroll {
-  display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   width: 100%;
@@ -24,17 +22,15 @@
   overflow: auto;
 }
 .list-tax-option-header {
-  display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+      align-items: center;
   margin-bottom: 14px;
   padding: 0;
 }
 .list-tax-option-header h4 {
-  font-size: 18px;
+  font-size: 12px;
   text-align: left;
   color: #555;
   margin: 0;
@@ -48,6 +44,14 @@
 }
 gumga-chips div.content-bottom {
   z-index: 3;
+}
+@media screen and (max-width: 1470px) {
+  .list-tax-scroll {
+    display: block;
+  }
+  .list-tax-option {
+    margin-top: 40px;
+  }
 }
 
 /*# sourceMappingURL=tributador.min.css.map*/

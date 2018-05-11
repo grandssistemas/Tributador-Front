@@ -98,18 +98,6 @@ function TaxSettingsFormController(TaxationGroupService,
         $scope.configOpenNext = false;
     }
 
-    $scope.validBuddy = function (oi, id) {
-        return ConfigService.validateBuddy(oi, id);
-    };
-
-    if (!$scope.validBuddy($scope.entity.oi, $scope.entity.id)){
-        SweetAlert.swal({
-            title: 'Atenção.',
-            text: 'Este registro que você está acessando é um registro publico, nenhuma alteração feita será salva.',
-            type: "warning"
-        });
-    }
-
     CompanyService.getCurrentCompany().then(function (data) {
         $scope.icmsNormal = data.data.crt === 'REGIME_NORMAL';
         if ($scope.icmsNormal) {
