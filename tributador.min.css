@@ -45,7 +45,7 @@
 gumga-chips div.content-bottom {
   z-index: 3;
 }
-@media screen and (max-width: 1470px) {
+@media screen and (max-width: 1439px) {
   .list-tax-scroll {
     display: block;
   }

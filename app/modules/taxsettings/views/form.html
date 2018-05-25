@@ -3,15 +3,14 @@
       gumga-form>
     <div class="row"
          style="font-size: 12px">
-        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-xs-offset-1 align-layout-panel cl-dark-primary text-uppercase"
-    
-             style="margin: 10px; margin-left: 130px">
+        <div class="col-md-12 align-layout-panel cl-dark-primary text-uppercase"
+             style="margin: 10px;">
             <label style="font-size: 24px"
                    class="ng-binding">CADASTRO DE TRIBUTOS</label>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-10 col-md-offset-1">
+    <div class="">
+        <div class="col-md-12">
             <!--Arvore de tributação-->
             <div class="panel gmd">
                 <div class="panel-body">
@@ -204,8 +203,8 @@
                                                 </match>
                                             </gumga-many-to-one>
                                         </div>
-                                        <div class="col-md-4"
-                                             ng-show="icmsNormal">
+                                        <!-- <div class="col-md-4" ng-show="icmsNormal"> -->
+                                        <div class="col-md-4">
                                             <label>CST</label>
                                             <select name="icmsCst"
                                                     id="icmsCst"
@@ -213,8 +212,8 @@
                                                     ng-options="cst.key as cst.label for cst in icmsTypes"
                                                     class="form-control"></select>
                                         </div>
-                                        <div class="col-md-4"
-                                             ng-hide="icmsNormal">
+                                        <!-- <div class="col-md-4" ng-hide="icmsNormal"> -->
+                                        <div class="col-md-4">
                                             <label>CSOSN</label>
                                             <select name="CSOSN"
                                                     id="CSOSN"
@@ -279,8 +278,9 @@
                                             </gumga-many-to-one>
                                         </div>
                                     </div>
-                                    <div class="row m-t"
-                                         ng-show="icmsNormal">
+
+                                    <!-- <div class="row m-t" ng-show="icmsNormal"> -->
+                                    <div class="row m-t">
                                         <div class="col-md-6">
                                             <div ng-hide="isIcmsAble(icms)">
                                                 <div class="row"
@@ -628,8 +628,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row m-t"
-                                         ng-hide="icmsNormal">
+                                    <!-- <div class="row m-t" ng-hide="icmsNormal"> -->
+                                    <div class="row m-t">
                                         <div class="col-md-6">
                                             <div ng-show="showSimples(icms)">
                                                 <div class="row "
