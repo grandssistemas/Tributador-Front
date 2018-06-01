@@ -92,6 +92,20 @@ function TaxSettingsFormController(TaxationGroupService,
 	$scope.productGroupConflicts = [];
 	$scope.operationConflicts = [];
 
+
+	$scope.validBuddy = function (oi, id) {
+		return ConfigService.validateBuddy(oi, id);
+	};
+
+	if (!$scope.validBuddy($scope.entity.oi, $scope.entity.id)) {
+		SweetAlert.swal({
+			title: 'Atenção.',
+			text: 'Este registro que você está acessando é um registro publico, nenhuma alteração feita será salva.',
+			type: "warning"
+		});
+	}
+
+
 	if ($scope.entity.id) {
 		$scope.openTaxation = true;
 		$scope.configOpen = false;
