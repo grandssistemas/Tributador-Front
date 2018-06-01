@@ -1280,7 +1280,8 @@
                      style="z-index: 99">
                 <button class="bg-accent gmd-ripple"
                         type="button"
-                        ng-class="{ 'gmd-disabled' : blockBtnTributos(entity) || saveDisabled(entity,icms,pis,cofins,ipi) }"
+                        ng-disabled="!validBuddy(entity.oi, entity.id)"
+                        ng-class="{ 'gmd-disabled' : !validBuddy(entity.oi, entity.id) || blockBtnTributos(entity) || saveDisabled(entity,icms,pis,cofins,ipi) }"
                         ng-click="update(entity,icms,pis,cofins,ipi, blockBtnTributos(entity) || saveDisabled(entity,icms,pis,cofins,ipi))">
                     <span class="material-icons">check</span>
                 </button>
