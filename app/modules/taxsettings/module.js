@@ -10,13 +10,13 @@ module.exports = angular.module('app.taxsettings', ['ui.router', 'app.taxsetting
         $stateProvider
             .state('app.taxsettings.list', {
                 url: '/list',
-                templateUrl: list,
+                template: list,
                 controller: 'TaxSettingsListController',
                 data: {id: 2}
             })
             .state('app.taxsettings.insert', {
                 url: '/insert',
-                templateUrl: form,
+                template: form,
                 controller: 'TaxSettingsFormController',
                 controllerAs: 'form',
                 data: {id: 3}, resolve: {
@@ -35,7 +35,7 @@ module.exports = angular.module('app.taxsettings', ['ui.router', 'app.taxsetting
             })
             .state('app.taxsettings.edit', {
                 url: '/edit/:id',
-                templateUrl: form,
+                template: form,
                 controller: 'TaxSettingsFormController',
                 data: {id: 3}, resolve: {
                     entity: ['$transition$', '$http', function ($transition$, $http) {

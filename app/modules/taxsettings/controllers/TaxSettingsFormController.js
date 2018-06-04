@@ -714,7 +714,7 @@ function TaxSettingsFormController(TaxationGroupService,
 			});
 			$uibModal.open({
 				size: 'lg',
-				templateUrl: modalConflito,
+				template: modalConflito,
 				controller: 'ModalConflitoController',
 				resolve: {
 					values: function () {
