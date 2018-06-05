@@ -1,4 +1,4 @@
-let modalConflito = require('../views/modalConflito.html');
+const modalConflito = require('../views/modalConflito.html');
 
 TaxSettingsFormController.$inject = [
 	'TaxationGroupService',
@@ -21,7 +21,8 @@ TaxSettingsFormController.$inject = [
 	'ConfigService',
 	'SweetAlert'];
 
-function TaxSettingsFormController(TaxationGroupService,
+function TaxSettingsFormController(
+	TaxationGroupService,
 	MensagemService,
 	CompanyService,
 	OperationTypeService,
@@ -39,8 +40,8 @@ function TaxSettingsFormController(TaxationGroupService,
 	MbgNotification,
 	gumgaController,
 	ConfigService,
-	SweetAlert) {
-
+	SweetAlert
+) {
 	gumgaController.createRestMethods($scope, TaxationGroupService, 'taxationGroup');
 	$scope.taxationGroup.execute('reset');
 	$scope.entity = angular.copy(entity.data);
@@ -101,7 +102,7 @@ function TaxSettingsFormController(TaxationGroupService,
 		SweetAlert.swal({
 			title: 'Atenção.',
 			text: 'Este registro que você está acessando é um registro publico, nenhuma alteração feita será salva.',
-			type: "warning"
+			type: 'warning'
 		});
 	}
 
@@ -112,7 +113,7 @@ function TaxSettingsFormController(TaxationGroupService,
 		$scope.configOpenNext = false;
 	}
 
-	CompanyService.getCurrentCompany().then(function (data) {
+	CompanyService.getCurrentCompany().then((data) => {
 		$scope.icmsNormal = data.data.crt === 'REGIME_NORMAL';
 		if ($scope.icmsNormal) {
 			$scope.tribute = ['ICMS', 'PIS', 'COFINS', 'IPI'];
@@ -122,9 +123,9 @@ function TaxSettingsFormController(TaxationGroupService,
 		}
 	});
 
-	OperationTypeService.all().then(function (data) {
+	OperationTypeService.all().then((data) => {
 		$scope.operationTypesList = data.data.values;
-		$timeout(function () {
+		$timeout(() => {
 			$scope.entity.operationTypes = entity.data.operationTypes || [];
 			$scope.entity.operationTypes = $scope.entity.operationTypes.map(function (data) {
 				return $scope.operationTypesList.filter(function (value) {
@@ -154,7 +155,7 @@ function TaxSettingsFormController(TaxationGroupService,
 		$scope.entity.destinations = [];
 		$scope.entity.personGroups = [];
 		$scope.entity.productGroups = [];
-		$scope.entity.name = "";
+		$scope.entity.name = '';
 		$scope.openTaxation = false;
 		$scope.stateOriginConflicts = [];
 		$scope.personGroupConflicts = [];
@@ -167,54 +168,55 @@ function TaxSettingsFormController(TaxationGroupService,
 	};
 
 	$scope.replicateTaxSetting = function () {
-		var newEntity = angular.copy($scope.entity);
+		const newEntity = angular.copy($scope.entity);
 		delete newEntity.id;
 
 		TaxationGroupService.newEntity = newEntity;
 		$state.go('app.taxsettings.insert');
 	};
 
-	PersonGroupService.all().then(function (data) {
+	PersonGroupService.all().then((data) => {
 		$scope.personGroupList = data.data.values;
-		$timeout(function () {
+		$timeout(() => {
 			$scope.entity.personGroups = entity.data.personGroups || [];
-		})
+		});
 	});
-	ProductGroupService.all().then(function (data) {
+	ProductGroupService.all().then((data) => {
 		$scope.productGroupList = data.data.values;
-		$timeout(function () {
+		$timeout(() => {
 			$scope.entity.productGroups = entity.data.productGroups || [];
-		})
+		});
 	});
-	TaxationGroupService.getStateList().then(function (data) {
+	TaxationGroupService.getStateList().then((data) => {
 		$scope.stateDestinationList = $scope.stateOriginList = data.data;
-		$timeout(function () {
+		$timeout(() => {
 			$scope.entity.origins = unmapEnum(entity.data.origins, $scope.stateOriginList);
+
 			$scope.entity.destinations = unmapEnum(entity.data.destinations, $scope.stateDestinationList);
-		})
+		});
 	});
-	TaxationGroupService.getICMSTypes().then(function (data) {
+	TaxationGroupService.getICMSTypes().then((data) => {
 		$scope.icmsTypes = [{ label: ' ' }].concat(data.data);
 	});
-	TaxationGroupService.getCsosnTypes().then(function (data) {
+	TaxationGroupService.getCsosnTypes().then((data) => {
 		$scope.csosnTypes = [{ label: ' ' }].concat(data.data);
 	});
-	TaxationGroupService.getPISTypes().then(function (data) {
+	TaxationGroupService.getPISTypes().then((data) => {
 		$scope.cstpis = [{ label: ' ' }].concat(data.data);
 	});
-	TaxationGroupService.getIPITypes().then(function (data) {
+	TaxationGroupService.getIPITypes().then((data) => {
 		$scope.cstipi = [{ label: ' ' }].concat(data.data);
 	});
-	TaxationGroupService.getCalculationTypes().then(function (data) {
+	TaxationGroupService.getCalculationTypes().then((data) => {
 		$scope.calculationTypes = data.data;
 	});
-	TaxationGroupService.getModeCalculationBaseTypes().then(function (data) {
+	TaxationGroupService.getModeCalculationBaseTypes().then((data) => {
 		$scope.modeCalculationBaseList = [{ label: ' ' }].concat(data.data);
 	});
-	TaxationGroupService.getModeCalculationBaseSTTypes().then(function (data) {
+	TaxationGroupService.getModeCalculationBaseSTTypes().then((data) => {
 		$scope.modeCalculationBaseSTList = [{ label: ' ' }].concat(data.data);
 	});
-	TaxationGroupService.getUnburdeningMotives().then(function (data) {
+	TaxationGroupService.getUnburdeningMotives().then((data) => {
 		$scope.unburdeningMotiveList = [{ label: ' ' }].concat(data.data);
 	});
 	$scope.confOperation = {
@@ -324,34 +326,22 @@ function TaxSettingsFormController(TaxationGroupService,
 	};
 	$scope.getCfopIcms = function (value) {
 		value = value || '';
-		return CfopService.getAdvancedSearch('lower(obj.codigo) like lower(\'%' + value + '%\') or lower(obj.descricao) like lower(\'%' + value + '%\')').then(function (data) {
-			return data.data.values;
-		});
+		return CfopService.getAdvancedSearch(`lower(obj.codigo) like lower('%${value}%') or lower(obj.descricao) like lower('%${value}%')`).then((data) => data.data.values);
 	};
 	$scope.getFormulaIcms = function (value) {
-		return FormulaService.getAdvancedSearch('lower(obj.name) like lower(\'%' + value + "%') and obj.tariffType = 'ICMS'").then(function (data) {
-			return data.data.values;
-		});
+		return FormulaService.getAdvancedSearch(`lower(obj.name) like lower('%${value}%') and obj.tariffType = 'ICMS'`).then((data) => data.data.values);
 	};
 	$scope.getFormulaPis = function (value) {
-		return FormulaService.getAdvancedSearch('lower(obj.name) like lower(\'%' + value + "%\') and obj.tariffType = 'PIS'").then(function (data) {
-			return data.data.values;
-		});
+		return FormulaService.getAdvancedSearch(`lower(obj.name) like lower('%${value}%\') and obj.tariffType = 'PIS'`).then((data) => data.data.values);
 	};
 	$scope.getFormulaCofins = function (value) {
-		return FormulaService.getAdvancedSearch('lower(obj.name) like lower(\'%' + value + "%\') and obj.tariffType = 'COFINS'").then(function (data) {
-			return data.data.values;
-		});
+		return FormulaService.getAdvancedSearch(`lower(obj.name) like lower('%${value}%\') and obj.tariffType = 'COFINS'`).then((data) => data.data.values);
 	};
 	$scope.getFormulaIpi = function (value) {
-		return FormulaService.getAdvancedSearch('lower(obj.name) like lower(\'%' + value + "%') and obj.tariffType = 'IPI'").then(function (data) {
-			return data.data.values;
-		});
+		return FormulaService.getAdvancedSearch(`lower(obj.name) like lower('%${value}%') and obj.tariffType = 'IPI'`).then((data) => data.data.values);
 	};
 	$scope.getMensagem = function (value, tribute) {
-		return MensagemService.getAdvancedSearch('lower(obj.name) like lower(\'%' + value + "%') and obj.tariffType = '" + tribute + "'").then(function (data) {
-			return data.data.values;
-		});
+		return MensagemService.getAdvancedSearch(`lower(obj.name) like lower('%${value}%') and obj.tariffType = '${tribute}'`).then((data) => data.data.values);
 	};
 	$scope.isIpiAble = function (entity) {
 		return !entity.CST ||
@@ -447,7 +437,6 @@ function TaxSettingsFormController(TaxationGroupService,
 					}
 					break;
 				default:
-
 			}
 		}
 	}
@@ -504,7 +493,6 @@ function TaxSettingsFormController(TaxationGroupService,
 					break;
 			}
 		}
-
 	}
 
 	function invalidIpi(ipi) {
@@ -591,7 +579,7 @@ function TaxSettingsFormController(TaxationGroupService,
 			switch (icms.CSOSN) {
 				case 'CREDITO_101':
 					if (icms.vCredICMSSN == null) {
-						return true
+						return true;
 					}
 					break;
 				case 'CREDITO_COM_ST_201':
@@ -607,7 +595,7 @@ function TaxSettingsFormController(TaxationGroupService,
 					break;
 				case 'ANTECIPACAO_ST_500':
 					if (invalidIcmsStRetidoAnterSimples(icms)) {
-						return true
+						return true;
 					}
 					break;
 				case 'OUTROS_900':
@@ -617,7 +605,6 @@ function TaxSettingsFormController(TaxationGroupService,
 					break;
 				default:
 					break;
-
 			}
 		}
 	}
@@ -626,7 +613,7 @@ function TaxSettingsFormController(TaxationGroupService,
 		return (icms.vBCSTRet && !icms.vICMSSTRet) || (!icms.vBCSTRet && icms.vICMSSTRet);
 	}
 
-	entity
+	entity;
 
 	function invalidBaseStSimples(icms) {
 		return !icms.modBCST || !icms.vBCST || (icms.pICMSST == null) || !icms.vICMSST;
@@ -678,36 +665,37 @@ function TaxSettingsFormController(TaxationGroupService,
 			entity.taxationCOFINS = mountCofins(cofins);
 		}
 		$rootScope.$emit('hideNextErrorMessage');
-		TaxationGroupService.saveValiding(entity).then(doSave, doErr)
+		TaxationGroupService.saveValiding(entity).then(doSave, doErr);
 	};
 
 	function doSave() {
-		if ($state.current.name === "taxsettings.insert") {
-			swal({
-				title: "Confirmação",
-				text: "Deseja continuar inserindo?",
-				type: "warning",
-				showCancelButton: true,
-				confirmButtonClass: "btn-success",
-				confirmButtonText: "Continuar",
-				cancelButtonText: "Não",
-				closeOnConfirm: true,
-				closeOnCancel: true
-			},
-				function (isConfirm) {
+		if ($state.current.name === 'taxsettings.insert') {
+			swal(
+				{
+					title: 'Confirmação',
+					text: 'Deseja continuar inserindo?',
+					type: 'warning',
+					showCancelButton: true,
+					confirmButtonClass: 'btn-success',
+					confirmButtonText: 'Continuar',
+					cancelButtonText: 'Não',
+					closeOnConfirm: true,
+					closeOnCancel: true
+				},
+				(isConfirm) => {
 					if (!isConfirm) {
 						$state.go('app.taxsettings.list');
 					}
-				});
+				}
+			);
 		} else {
 			$state.go('app.taxsettings.list');
 		}
-		;
 	}
 
 	function doErr(err) {
 		if (Array.isArray(err.data)) {
-			var values = err.data.map(function (data) {
+			const values = err.data.map((data) => {
 				data.destinations = unmapEnum(data.destinations, $scope.stateDestinationList);
 				data.origins = unmapEnum(data.origins, $scope.stateOriginList);
 				return data;
@@ -717,10 +705,10 @@ function TaxSettingsFormController(TaxationGroupService,
 				templateUrl: modalConflito,
 				controller: 'ModalConflitoController',
 				resolve: {
-					values: function () {
+					values() {
 						return values;
 					},
-					entity: function () {
+					entity() {
 						return $scope.entity;
 					}
 				}
@@ -738,11 +726,9 @@ function TaxSettingsFormController(TaxationGroupService,
 
 	function unmapEnum(valueArr, dtoArr) {
 		valueArr = valueArr || [];
-		return valueArr.map(function (data) {
-			return dtoArr.filter(function (value) {
-				return value.key === data || value.key === data.key;
-			})[0]
-		});
+		return valueArr.map((data) => dtoArr.filter(function (value) {
+			return value.key === data || value.key === data.key;
+		})[0]);
 	}
 
 	function invalidCofinsAliquotaST(cofins) {
@@ -794,7 +780,7 @@ function TaxSettingsFormController(TaxationGroupService,
 	}
 
 	function mountIcms(icms) {
-		var obj = {
+		const obj = {
 			CST: icms.CST,
 			version: icms.version,
 			cfop: icms.cfop,
@@ -858,7 +844,7 @@ function TaxSettingsFormController(TaxationGroupService,
 	}
 
 	function mountIcmsSimples(icms) {
-		var obj = {
+		const obj = {
 			version: icms.version,
 			cfop: icms.cfop,
 			mensagem: icms.mensagem,
@@ -903,7 +889,7 @@ function TaxSettingsFormController(TaxationGroupService,
 	}
 
 	function mountPis(pis) {
-		var obj = {
+		const obj = {
 			CST: pis.CST,
 			version: pis.version,
 			mensagem: pis.mensagem
@@ -961,7 +947,7 @@ function TaxSettingsFormController(TaxationGroupService,
 	}
 
 	function mountCofins(cofins) {
-		var obj = {
+		const obj = {
 			CST: cofins.CST,
 			version: cofins.version,
 			mensagem: cofins.mensagem
@@ -1019,7 +1005,7 @@ function TaxSettingsFormController(TaxationGroupService,
 	}
 
 	function mountIpi(ipi) {
-		var obj = {
+		const obj = {
 			CST: ipi.CST,
 			version: ipi.version,
 			mensagem: ipi.mensagem,
@@ -1043,7 +1029,7 @@ function TaxSettingsFormController(TaxationGroupService,
 		return obj;
 	}
 
-	//Funções dos conflitos na grade
+	// Funções dos conflitos na grade
 	function mountConflicts(values) {
 		$scope.stateOriginConflicts = mountNewArr(values, 'destinations', 'key');
 		$scope.stateDestinationConflicts = mountNewArr(values, 'destinations', 'key');
@@ -1053,10 +1039,10 @@ function TaxSettingsFormController(TaxationGroupService,
 	}
 
 	function mountNewArr(arr, field, comparationField) {
-		var newArr = [],
+		let newArr = [],
 			toReturn = [];
-		arr.forEach(function (data) {
-			data[field].forEach(function (value) {
+		arr.forEach((data) => {
+			data[field].forEach((value) => {
 				newArr[value[comparationField]] = value;
 			});
 		});
@@ -1069,11 +1055,9 @@ function TaxSettingsFormController(TaxationGroupService,
 	function operationConditional(value) {
 		return {
 			'2px solid red': function () {
-				return $scope.operationConflicts.filter(function (data) {
-					return data.id === value.id;
-				}).length > 0;
+				return $scope.operationConflicts.filter((data) => data.id === value.id).length > 0;
 			}
-		}
+		};
 	}
 
 	$scope.showAliquotaGroup = function (icms) {
@@ -1083,7 +1067,7 @@ function TaxSettingsFormController(TaxationGroupService,
 		return icms.CSOSN === 'CREDITO_COM_ST_201' ||
 			icms.CSOSN === 'SEM_CREDITO_COM_ST_202' ||
 			icms.CSOSN === 'RECEITA_BRUTA_COM_ST_203' ||
-			icms.CSOSN === 'OUTROS_900'
+			icms.CSOSN === 'OUTROS_900';
 	};
 	$scope.showSimples = function (icms) {
 		return icms.CSOSN === 'CREDITO_101' ||
@@ -1105,9 +1089,7 @@ function TaxSettingsFormController(TaxationGroupService,
 	};
 
 	$scope.searchEnquadramento = function (param) {
-		return CodigoEnquadramentoIpiService.getSearch('descricao,codigo', param).then(function (data) {
-			return data.data.values;
-		})
+		return CodigoEnquadramentoIpiService.getSearch('descricao,codigo', param).then((data) => data.data.values);
 	};
 }
 

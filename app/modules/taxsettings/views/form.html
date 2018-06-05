@@ -35,7 +35,7 @@
                                                  filter-option-by="contains"
                                                  full-mode
                                                  ng-model="entity.operationTypes">
-                                        <gumga-chips-item ng-repeat="item in entity.operationTypes"
+                                        <gumga-chips-item ng-repeat="item in entity.operationTypes track by $index"
                                                           ng-value="item">
                                             {{item.name}}
                                         </gumga-chips-item>
@@ -63,7 +63,7 @@
                                                  filter-option-by="contains"
                                                  full-mode
                                                  ng-model="entity.origins">
-                                        <gumga-chips-item ng-repeat="item in entity.origins"
+                                        <gumga-chips-item ng-repeat="item in entity.origins track by $index"
                                                           ng-value="item">
                                             {{item.label}}
                                         </gumga-chips-item>
@@ -91,7 +91,7 @@
                                                  filter-option-by="contains"
                                                  full-mode
                                                  ng-model="entity.destinations">
-                                        <gumga-chips-item ng-repeat="item in entity.destinations"
+                                        <gumga-chips-item ng-repeat="item in entity.destinations track by $index"
                                                           ng-value="item">
                                             {{item.label}}
                                         </gumga-chips-item>
@@ -119,7 +119,7 @@
                                                  filter-option-by="contains"
                                                  full-mode
                                                  ng-model="entity.personGroups">
-                                        <gumga-chips-item ng-repeat="item in entity.personGroups"
+                                        <gumga-chips-item ng-repeat="item in entity.personGroups track by $index"
                                                           ng-value="item">
                                             {{item.name}}
                                         </gumga-chips-item>
@@ -148,7 +148,7 @@
                                                  filter-option-by="contains"
                                                  full-mode
                                                  ng-model="entity.productGroups">
-                                        <gumga-chips-item ng-repeat="item in entity.productGroups"
+                                        <gumga-chips-item ng-repeat="item in entity.productGroups track by $index"
                                                           ng-value="item">
                                             {{item.name}}
                                         </gumga-chips-item>
