@@ -1,98 +1,159 @@
-<form name="forms" novalidate gumga-form>
-    <div class="row" style="font-size: 12px">
-        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-xs-offset-1 align-layout-panel cl-dark-primary text-uppercase"
-            style="margin: 10px; margin-left: 130px">
-            <label style="font-size: 24px" class="ng-binding">CADASTRO DE TRIBUTOS</label>
+<form name="forms"
+      novalidate
+      gumga-form>
+    <div class="row"
+         style="font-size: 12px">
+        <div class="col-md-12 align-layout-panel cl-dark-primary text-uppercase"
+             style="margin: 10px;">
+            <label style="font-size: 24px"
+                   class="ng-binding">CADASTRO DE TRIBUTOS</label>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-10 col-md-offset-1">
+    <div class="">
+        <div class="col-md-12">
             <!--Arvore de tributação-->
             <div class="panel gmd">
                 <div class="panel-body">
                     <div class="row">
                         <!--Passo 1-->
-                        <div ng-hide="step2" class="list-tax-scroll">
+                        <div ng-hide="step2"
+                             class="list-tax-scroll">
                             <!--Tipo de operação-->
-                            <div class="list-tax-option" align="center" style="font-size: 11px">
+                            <div class="list-tax-option"
+                                 align="center"
+                                 style="font-size: 11px">
                                 <div class="list-tax-option-header">
-                                    <h4 gumga-translate-tag="taxsettings.operation" class="b">OPERATION</h4>
-                                    <a ng-click="entity.operationTypes = operationTypesList;">Adicionar todos</a>
+                                    <h4 gumga-translate-tag="taxsettings.operation"
+                                        class="b">OPERATION</h4>
+                                    <a ng-click="addOrRemoveAll('operationTypes', operationTypesList)">
+                                        {{ isEqualArray(entity.operationTypes, operationTypesList) ? 'Remover todos' : 'Adicionar todos' }}
+                                    </a>
                                 </div>
                                 <div>
-                                    <gumga-chips placeholder="Buscar..." search-field="name" filter-option-by="contains" full-mode ng-model="entity.operationTypes">
-                                        <gumga-chips-item ng-repeat="item in entity.operationTypes" ng-value="item">
+                                    <gumga-chips placeholder="Buscar..."
+                                                 search-field="name"
+                                                 filter-option-by="contains"
+                                                 full-mode
+                                                 ng-model="entity.operationTypes">
+                                        <gumga-chips-item ng-repeat="item in entity.operationTypes track by $index"
+                                                          ng-value="item">
                                             {{item.name}}
                                         </gumga-chips-item>
-                                        <gumga-chips-option ng-repeat="option in operationTypesList" ng-value="option">
+                                        <gumga-chips-option ng-repeat="option in operationTypesList"
+                                                            ng-value="option">
                                             {{option.name}}
                                         </gumga-chips-option>
                                     </gumga-chips>
                                 </div>
                             </div>
                             <!--Origem-->
-                            <div class="list-tax-option" align="center" style="font-size: 11px">
+                            <div class="list-tax-option"
+                                 align="center"
+                                 style="font-size: 11px">
                                 <div class="list-tax-option-header">
-                                    <h4 gumga-translate-tag="taxsettings.origin" class="b">ORIGIN</h4>
-                                    <a ng-click="entity.origins = stateOriginList;">Adicionar todos</a>
+                                    <h4 gumga-translate-tag="taxsettings.origin"
+                                        class="b">ORIGIN</h4>
+                                    <a ng-click="addOrRemoveAll('origins', stateOriginList)">
+                                        {{ isEqualArray(entity.origins, stateOriginList) ? 'Remover todos' : 'Adicionar todos' }}
+                                    </a>
                                 </div>
                                 <div>
-                                    <gumga-chips placeholder="Buscar..." search-field="label" filter-option-by="contains" full-mode ng-model="entity.origins">
-                                        <gumga-chips-item ng-repeat="item in entity.origins" ng-value="item">
+                                    <gumga-chips placeholder="Buscar..."
+                                                 search-field="label"
+                                                 filter-option-by="contains"
+                                                 full-mode
+                                                 ng-model="entity.origins">
+                                        <gumga-chips-item ng-repeat="item in entity.origins track by $index"
+                                                          ng-value="item">
                                             {{item.label}}
                                         </gumga-chips-item>
-                                        <gumga-chips-option ng-repeat="option in stateOriginList" ng-value="option">
+                                        <gumga-chips-option ng-repeat="option in stateOriginList"
+                                                            ng-value="option">
                                             {{option.label}}
                                         </gumga-chips-option>
                                     </gumga-chips>
                                 </div>
                             </div>
                             <!--Destino-->
-                            <div class="list-tax-option" align="center" style="font-size: 11px">
+                            <div class="list-tax-option"
+                                 align="center"
+                                 style="font-size: 11px">
                                 <div class="list-tax-option-header">
-                                    <h4 gumga-translate-tag="taxsettings.destination" class="b">DESTINATION</h4>
-                                    <a ng-click="entity.destinations = stateDestinationList;">Adicionar todos</a>
+                                    <h4 gumga-translate-tag="taxsettings.destination"
+                                        class="b">DESTINATION</h4>
+                                    <a ng-click="addOrRemoveAll('destinations', stateDestinationList)">
+                                        {{ isEqualArray(entity.destinations, stateDestinationList) ? 'Remover todos' : 'Adicionar todos' }}
+                                    </a>
                                 </div>
                                 <div>
-                                    <gumga-chips placeholder="Buscar..." search-field="label" filter-option-by="contains" full-mode ng-model="entity.destinations">
-                                        <gumga-chips-item ng-repeat="item in entity.destinations" ng-value="item">
+                                    <gumga-chips placeholder="Buscar..."
+                                                 search-field="label"
+                                                 filter-option-by="contains"
+                                                 full-mode
+                                                 ng-model="entity.destinations">
+                                        <gumga-chips-item ng-repeat="item in entity.destinations track by $index"
+                                                          ng-value="item">
                                             {{item.label}}
                                         </gumga-chips-item>
-                                        <gumga-chips-option ng-repeat="option in stateDestinationList" ng-value="option">
+                                        <gumga-chips-option ng-repeat="option in stateDestinationList"
+                                                            ng-value="option">
                                             {{option.label}}
                                         </gumga-chips-option>
                                     </gumga-chips>
                                 </div>
                             </div>
                             <!--Tipo de Pessoa-->
-                            <div class="list-tax-option" align="center" style="font-size: 11px;">
+                            <div class="list-tax-option"
+                                 align="center"
+                                 style="font-size: 11px;">
                                 <div class="list-tax-option-header">
-                                    <h4 gumga-translate-tag="taxsettings.person" class="b">PERSON</h4>
-                                    <a ng-click="entity.personGroups = personGroupList;">Adicionar todos</a>
+                                    <h4 gumga-translate-tag="taxsettings.person"
+                                        class="b">PERSON</h4>
+                                    <a ng-click="addOrRemoveAll('personGroups', personGroupList)">
+                                        {{ isEqualArray(entity.personGroups, personGroupList) ? 'Remover todos' : 'Adicionar todos' }}
+                                    </a>
                                 </div>
                                 <div>
-                                    <gumga-chips placeholder="Buscar..." search-field="name" filter-option-by="contains" full-mode ng-model="entity.personGroups">
-                                        <gumga-chips-item ng-repeat="item in entity.personGroups" ng-value="item">
+                                    <gumga-chips placeholder="Buscar..."
+                                                 search-field="name"
+                                                 filter-option-by="contains"
+                                                 full-mode
+                                                 ng-model="entity.personGroups">
+                                        <gumga-chips-item ng-repeat="item in entity.personGroups track by $index"
+                                                          ng-value="item">
                                             {{item.name}}
                                         </gumga-chips-item>
-                                        <gumga-chips-option ng-repeat="option in personGroupList" ng-value="option">
+                                        <gumga-chips-option ng-repeat="option in personGroupList"
+                                                            ng-value="option">
                                             {{option.name}}
                                         </gumga-chips-option>
                                     </gumga-chips>
                                 </div>
                             </div>
                             <!--Tipo de Produto-->
-                            <div class="list-tax-option" align="center" style="font-size: 11px;">
+                            <div class="list-tax-option"
+                                 align="center"
+                                 style="font-size: 11px;">
                                 <div class="list-tax-option-header">
-                                    <h4 gumga-translate-tag="taxsettings.product" class="b">PRODUCT</h4>
-                                    <a ng-click="entity.productGroups = productGroupList;">Adicionar todos</a>
+                                    <h4 gumga-translate-tag="taxsettings.product"
+                                        class="b">PRODUCT</h4>
+                                    <a ng-click="addOrRemoveAll('productGroups', productGroupList)">
+                                        {{ isEqualArray(entity.productGroups, productGroupList) ? 'Remover todos' : 'Adicionar todos' }}
+                                    </a>
+
                                 </div>
                                 <div>
-                                    <gumga-chips placeholder="Buscar..." search-field="name" filter-option-by="contains" full-mode ng-model="entity.productGroups">
-                                        <gumga-chips-item ng-repeat="item in entity.productGroups" ng-value="item">
+                                    <gumga-chips placeholder="Buscar..."
+                                                 search-field="name"
+                                                 filter-option-by="contains"
+                                                 full-mode
+                                                 ng-model="entity.productGroups">
+                                        <gumga-chips-item ng-repeat="item in entity.productGroups track by $index"
+                                                          ng-value="item">
                                             {{item.name}}
                                         </gumga-chips-item>
-                                        <gumga-chips-option ng-repeat="option in productGroupList" ng-value="option">
+                                        <gumga-chips-option ng-repeat="option in productGroupList"
+                                                            ng-value="option">
                                             {{option.name}}
                                         </gumga-chips-option>
                                     </gumga-chips>
@@ -109,42 +170,65 @@
                     <div class="row m-t">
                         <div class="col-md-12">
                             <gmd-input>
-                                <input type="text" class="form-control gmd" ng-model="entity.name" style="font-size: 20px" />
+                                <input type="text"
+                                       class="form-control gmd"
+                                       ng-model="entity.name"
+                                       style="font-size: 20px" />
                                 <span class="bar"></span>
-                                <label class="control-label" gumga-translate-tag="taxsettings.titleparameterization">Title parameterization
+                                <label class="control-label"
+                                       gumga-translate-tag="taxsettings.titleparameterization">Title parameterization
                                 </label>
                             </gmd-input>
                         </div>
                     </div>
                     <uib-tabset active="activePill">
                         <!--ICMS-->
-                        <uib-tab index="0" heading="ICMS">
+                        <uib-tab index="0"
+                                 heading="ICMS">
                             <div>
                                 <div class="row container-fluid">
 
                                     <div class="row m-t">
                                         <div class="col-md-4">
                                             <label>CFOP</label>
-                                            <gumga-many-to-one value="icms.cfop" search-method="getCfopIcms(param)" field="descricao" async="true" display-info="false"
-                                                editable="false">
+                                            <gumga-many-to-one value="icms.cfop"
+                                                               search-method="getCfopIcms(param)"
+                                                               field="descricao"
+                                                               async="true"
+                                                               display-info="false"
+                                                               editable="false">
                                                 <match>
                                                     <div>{{match.model.codigo}}</div>
                                                     <div>{{match.model.descricao}}</div>
                                                 </match>
                                             </gumga-many-to-one>
                                         </div>
-                                        <div class="col-md-4" ng-show="icmsNormal">
+                                        <!-- <div class="col-md-4" ng-show="icmsNormal"> -->
+                                        <div class="col-md-4">
                                             <label>CST</label>
-                                            <select name="icmsCst" id="icmsCst" ng-model="icms.CST" ng-options="cst.key as cst.label for cst in icmsTypes" class="form-control"></select>
+                                            <select name="icmsCst"
+                                                    id="icmsCst"
+                                                    ng-model="icms.CST"
+                                                    ng-options="cst.key as cst.label for cst in icmsTypes"
+                                                    class="form-control"></select>
                                         </div>
-                                        <div class="col-md-4" ng-hide="icmsNormal">
+                                        <!-- <div class="col-md-4" ng-hide="icmsNormal"> -->
+                                        <div class="col-md-4">
                                             <label>CSOSN</label>
-                                            <select name="CSOSN" id="CSOSN" ng-model="icms.CSOSN" ng-options="cst.key as cst.label for cst in csosnTypes" class="form-control"></select>
+                                            <select name="CSOSN"
+                                                    id="CSOSN"
+                                                    ng-model="icms.CSOSN"
+                                                    ng-options="cst.key as cst.label for cst in csosnTypes"
+                                                    class="form-control"></select>
                                         </div>
                                         <div class="col-md-4">
                                             <label>Mensagem</label>
-                                            <gumga-many-to-one value="icms.mensagem" search-method="getMensagem(param,'ICMS')" field="name" async="true" display-info="false"
-                                                editable="false">
+                                            <gumga-many-to-one value="icms.mensagem"
+                                                               search-method="getMensagem(param,'ICMS')"
+                                                               field="name"
+                                                               async="true"
+                                                               display-info="false"
+                                                               editable="false">
                                                 <match>
                                                     <div>{{match.model.name}}</div>
                                                 </match>
@@ -154,35 +238,53 @@
                                     <div class="row m-t">
                                         <div class="col-md-4">
                                             <label>CFOP para referenciado</label>
-                                            <gumga-many-to-one value="icms.cfopRef" search-method="getCfopIcms(param)" field="descricao" async="true" display-info="false"
-                                                editable="false">
+                                            <gumga-many-to-one value="icms.cfopRef"
+                                                               search-method="getCfopIcms(param)"
+                                                               field="descricao"
+                                                               async="true"
+                                                               display-info="false"
+                                                               editable="false">
                                                 <match>
                                                     <div>{{match.model.codigo}}</div>
                                                     <div>{{match.model.descricao}}</div>
                                                 </match>
                                             </gumga-many-to-one>
                                         </div>
-                                        <div class="col-md-4" ng-if="icms.CSOSN === 'ANTECIPACAO_ST_500'" style="margin-top: 17px;">
+                                        <div class="col-md-4"
+                                             ng-if="icms.CSOSN === 'ANTECIPACAO_ST_500'"
+                                             style="margin-top: 17px;">
                                             <gmd-input>
-                                                <input type="text" class="form-control gmd" ui-percentage-mask ng-model="icms.pReducaoBase" id="pReducaoBase">
+                                                <input type="text"
+                                                       class="form-control gmd"
+                                                       ui-percentage-mask
+                                                       ng-model="icms.pReducaoBase"
+                                                       id="pReducaoBase">
                                                 <span class="bar"></span>
-                                                <label for="pReducaoBase" class="control-label">Redução da base de calculo</label>
+                                                <label for="pReducaoBase"
+                                                       class="control-label">Redução da base de calculo</label>
                                             </gmd-input>
                                         </div>
                                         <div class="col-md-4">
                                             <label>Mensagem para referenciado</label>
-                                            <gumga-many-to-one value="icms.mensagemRef" search-method="getMensagem(param,'ICMS')" field="name" async="true" display-info="false"
-                                                editable="false">
+                                            <gumga-many-to-one value="icms.mensagemRef"
+                                                               search-method="getMensagem(param,'ICMS')"
+                                                               field="name"
+                                                               async="true"
+                                                               display-info="false"
+                                                               editable="false">
                                                 <match>
                                                     <div>{{match.model.name}}</div>
                                                 </match>
                                             </gumga-many-to-one>
                                         </div>
                                     </div>
-                                    <div class="row m-t" ng-show="icmsNormal">
+
+                                    <!-- <div class="row m-t" ng-show="icmsNormal"> -->
+                                    <div class="row m-t">
                                         <div class="col-md-6">
                                             <div ng-hide="isIcmsAble(icms)">
-                                                <div class="row" align="center">
+                                                <div class="row"
+                                                     align="center">
                                                     <h4 class="b">
                                                         ICMS</h4>
                                                 </div>
@@ -190,12 +292,20 @@
                                                     <div class="row">
                                                         <div class="col-md-7">
                                                             <label>Modalidade Deter. da BC ICMS</label>
-                                                            <select name="icmsModBC" id="icmsModBC" ng-model="icms.modBC" class="form-control" ng-options="mod.key as mod.label for mod in modeCalculationBaseList"></select>
+                                                            <select name="icmsModBC"
+                                                                    id="icmsModBC"
+                                                                    ng-model="icms.modBC"
+                                                                    class="form-control"
+                                                                    ng-options="mod.key as mod.label for mod in modeCalculationBaseList"></select>
                                                         </div>
                                                         <div class="col-md-5">
                                                             <label>Fórmula Valor da BC ICMS</label>
-                                                            <gumga-many-to-one value="icms.vBC" search-method="getFormulaIcms(param)" field="name" async="true" display-info="false"
-                                                                editable="false">
+                                                            <gumga-many-to-one value="icms.vBC"
+                                                                               search-method="getFormulaIcms(param)"
+                                                                               field="name"
+                                                                               async="true"
+                                                                               display-info="false"
+                                                                               editable="false">
                                                                 <match>
                                                                     <div>{{match.model.name}}</div>
                                                                 </match>
@@ -205,13 +315,20 @@
                                                     <div class="row m-t">
                                                         <div class="col-md-5">
                                                             <label>Alíquota ICMS</label>
-                                                            <input type="text" class="form-control" ui-percentage-mask ng-model="icms.pICMS" />
+                                                            <input type="text"
+                                                                   class="form-control"
+                                                                   ui-percentage-mask
+                                                                   ng-model="icms.pICMS" />
                                                         </div>
                                                         <div class="col-md-7">
                                                             <label>Fórmula Valor ICMS</label>
 
-                                                            <gumga-many-to-one value="icms.vICMS" search-method="getFormulaIcms(param)" field="name" async="true" display-info="false"
-                                                                editable="false">
+                                                            <gumga-many-to-one value="icms.vICMS"
+                                                                               search-method="getFormulaIcms(param)"
+                                                                               field="name"
+                                                                               async="true"
+                                                                               display-info="false"
+                                                                               editable="false">
                                                                 <match>
                                                                     <div>{{match.model.name}}</div>
                                                                 </match>
@@ -219,14 +336,22 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="row" ng-show="isRedGroupAble(icms)">
+                                                <div class="row"
+                                                     ng-show="isRedGroupAble(icms)">
                                                     <div class="col-md-5 m-t container-fluid">
                                                         <label>Redução da BC ICMS</label>
-                                                        <input type="text" class="form-control" ng-model="icms.pRedBC" ui-percentage-mask/>
+                                                        <input type="text"
+                                                               class="form-control"
+                                                               ng-model="icms.pRedBC"
+                                                               ui-percentage-mask/>
                                                     </div>
-                                                    <div class="col-md-7 m-t" ng-hide="!(icms.CST == 'COBRANCA_ST_10_COM_PARTILHA' || icms.CST == 'OUTRAS_COM_PARTILHA_90')">
+                                                    <div class="col-md-7 m-t"
+                                                         ng-hide="!(icms.CST == 'COBRANCA_ST_10_COM_PARTILHA' || icms.CST == 'OUTRAS_COM_PARTILHA_90')">
                                                         <label>BC da operação própria</label>
-                                                        <input type="text" class="form-control" ng-model="icms.pBCOp" ui-percentage-mask/>
+                                                        <input type="text"
+                                                               class="form-control"
+                                                               ng-model="icms.pBCOp"
+                                                               ui-percentage-mask/>
                                                     </div>
                                                 </div>
                                                 <div ng-show="isIcmsDesoGroupAble(icms)">
@@ -234,8 +359,12 @@
                                                         <div class="col-md-7 m-t">
                                                             <label>Valor ICMS Desonerado</label>
 
-                                                            <gumga-many-to-one value="icms.vICMSDeson" search-method="getFormulaIcms(param)" field="name" async="true" display-info="false"
-                                                                editable="false">
+                                                            <gumga-many-to-one value="icms.vICMSDeson"
+                                                                               search-method="getFormulaIcms(param)"
+                                                                               field="name"
+                                                                               async="true"
+                                                                               display-info="false"
+                                                                               editable="false">
                                                                 <match>
                                                                     <div>{{match.model.name}}</div>
                                                                 </match>
@@ -245,7 +374,11 @@
                                                     <div class="col-md-12 m-t">
                                                         <div class="row">
                                                             <label>Motivo da desoneração</label>
-                                                            <select name="icmsMotDes" id="icmsMotDes" ng-model="icms.motDesICMS" class="form-control" ng-options="obj.key as obj.label for obj in unburdeningMotiveList"></select>
+                                                            <select name="icmsMotDes"
+                                                                    id="icmsMotDes"
+                                                                    ng-model="icms.motDesICMS"
+                                                                    class="form-control"
+                                                                    ng-options="obj.key as obj.label for obj in unburdeningMotiveList"></select>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -253,8 +386,12 @@
                                                     <div class="row m-t">
                                                         <div class="col-md-7">
                                                             <label>ICMS da Operação</label>
-                                                            <gumga-many-to-one value="icms.vICMSOp" search-method="getFormulaIcms(param)" field="name" async="true" display-info="false"
-                                                                editable="false">
+                                                            <gumga-many-to-one value="icms.vICMSOp"
+                                                                               search-method="getFormulaIcms(param)"
+                                                                               field="name"
+                                                                               async="true"
+                                                                               display-info="false"
+                                                                               editable="false">
                                                                 <match>
                                                                     <div>{{match.model.name}}</div>
                                                                 </match>
@@ -262,14 +399,21 @@
                                                         </div>
                                                         <div class="col-md-5">
                                                             <label>Percentual do Diferimento</label>
-                                                            <input type="text" class="form-control" ui-percentage-mask ng-model="icms.pDif" />
+                                                            <input type="text"
+                                                                   class="form-control"
+                                                                   ui-percentage-mask
+                                                                   ng-model="icms.pDif" />
                                                         </div>
                                                     </div>
                                                     <div class="row m-t">
                                                         <div class="col-md-7">
                                                             <label>Valor do ICMS diferido</label>
-                                                            <gumga-many-to-one value="icms.vICMSDif" search-method="getFormulaIcms(param)" field="name" async="true" display-info="false"
-                                                                editable="false">
+                                                            <gumga-many-to-one value="icms.vICMSDif"
+                                                                               search-method="getFormulaIcms(param)"
+                                                                               field="name"
+                                                                               async="true"
+                                                                               display-info="false"
+                                                                               editable="false">
                                                                 <match>
                                                                     <div>{{match.model.name}}</div>
                                                                 </match>
@@ -277,20 +421,29 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="row m-t" ng-show="isFCPVisible(icms)">
+                                                <div class="row m-t"
+                                                     ng-show="isFCPVisible(icms)">
                                                     <div class="col-md-6">
                                                         <label>Alíquota interna da UF de destino</label>
-                                                        <input type="text" class="form-control" ui-percentage-mask ng-model="icms.pICMSUFDest" />
+                                                        <input type="text"
+                                                               class="form-control"
+                                                               ui-percentage-mask
+                                                               ng-model="icms.pICMSUFDest" />
                                                     </div>
                                                     <div class="col-md-6">
                                                         <label>Perc. Fundo Comb. à Pobreza</label>
-                                                        <input type="text" class="form-control" ui-percentage-mask ng-model="icms.pFCPUFDest" />
+                                                        <input type="text"
+                                                               class="form-control"
+                                                               ui-percentage-mask
+                                                               ng-model="icms.pFCPUFDest" />
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-6" ng-hide="isIcmsStAble(icms)">
-                                            <div class="row" align="center">
+                                        <div class="col-md-6"
+                                             ng-hide="isIcmsStAble(icms)">
+                                            <div class="row"
+                                                 align="center">
                                                 <h4 class="b">
                                                     ICMS ST</h4>
                                             </div>
@@ -298,22 +451,39 @@
                                                 <div class="row">
                                                     <div class="col-md-7">
                                                         <label>Modalidade Deter. da BC ICMS ST</label>
-                                                        <select name="icmsmodBCST" id="icmsBCST" ng-model="icms.modBCST" class="form-control" ng-options="modst.key as modst.label for modst in modeCalculationBaseSTList"></select>
+                                                        <select name="icmsmodBCST"
+                                                                id="icmsBCST"
+                                                                ng-model="icms.modBCST"
+                                                                class="form-control"
+                                                                ng-options="modst.key as modst.label for modst in modeCalculationBaseSTList"></select>
                                                     </div>
-                                                    <div class="col-md-5" ng-show="icms.CST == 'COBRANCA_ST_10' || icms.CST == 'COBRANCA_ST_10_COM_PARTILHA' || icms.CST == 'ISENTA_COM_ST_30' || icms.CST == 'ST_REDUCAO_BC_70' || icms.CST == 'OUTRAS_COM_PARTILHA_90' || icms.CST == 'OUTROS_90'">
+                                                    <div class="col-md-5"
+                                                         ng-show="icms.CST == 'COBRANCA_ST_10' || icms.CST == 'COBRANCA_ST_10_COM_PARTILHA' || icms.CST == 'ISENTA_COM_ST_30' || icms.CST == 'ST_REDUCAO_BC_70' || icms.CST == 'OUTRAS_COM_PARTILHA_90' || icms.CST == 'OUTROS_90'">
                                                         <label>Redução BC ICMS ST</label>
-                                                        <input type="text" class="form-control" ui-percentage-mask ng-model="icms.pRedBCST" />
+                                                        <input type="text"
+                                                               class="form-control"
+                                                               ui-percentage-mask
+                                                               ng-model="icms.pRedBCST" />
                                                     </div>
                                                 </div>
                                                 <div class="row m-t">
-                                                    <div class="col-md-5" ng-show="icms.CST == 'COBRANCA_ST_10' || icms.CST == 'COBRANCA_ST_10_COM_PARTILHA' || icms.CST == 'ISENTA_COM_ST_30' || icms.CST == 'ST_REDUCAO_BC_70' || icms.CST == 'OUTRAS_COM_PARTILHA_90' || icms.CST == 'OUTROS_90'">
+                                                    <div class="col-md-5"
+                                                         ng-show="icms.CST == 'COBRANCA_ST_10' || icms.CST == 'COBRANCA_ST_10_COM_PARTILHA' || icms.CST == 'ISENTA_COM_ST_30' || icms.CST == 'ST_REDUCAO_BC_70' || icms.CST == 'OUTRAS_COM_PARTILHA_90' || icms.CST == 'OUTROS_90'">
                                                         <label>Margem valor adic. ICMS ST</label>
-                                                        <input type="text" class="form-control" ui-percentage-mask ng-model="icms.pMVAST" />
+                                                        <input type="text"
+                                                               class="form-control"
+                                                               ui-percentage-mask
+                                                               ng-model="icms.pMVAST" />
                                                     </div>
-                                                    <div class="col-md-7" ng-show="icms.CST == 'COBRANCA_ST_10' || icms.CST == 'COBRANCA_ST_10_COM_PARTILHA' || icms.CST == 'ISENTA_COM_ST_30' || icms.CST == 'ST_REDUCAO_BC_70' || icms.CST == 'OUTRAS_COM_PARTILHA_90' || icms.CST == 'OUTROS_90'">
+                                                    <div class="col-md-7"
+                                                         ng-show="icms.CST == 'COBRANCA_ST_10' || icms.CST == 'COBRANCA_ST_10_COM_PARTILHA' || icms.CST == 'ISENTA_COM_ST_30' || icms.CST == 'ST_REDUCAO_BC_70' || icms.CST == 'OUTRAS_COM_PARTILHA_90' || icms.CST == 'OUTROS_90'">
                                                         <label>Fórmula Valor BC ICMS ST</label>
-                                                        <gumga-many-to-one value="icms.vBCST" search-method="getFormulaIcms(param)" field="name" async="true" display-info="false"
-                                                            editable="false">
+                                                        <gumga-many-to-one value="icms.vBCST"
+                                                                           search-method="getFormulaIcms(param)"
+                                                                           field="name"
+                                                                           async="true"
+                                                                           display-info="false"
+                                                                           editable="false">
                                                             <match>
                                                                 <div>{{match.model.name}}</div>
                                                             </match>
@@ -321,14 +491,23 @@
                                                     </div>
                                                 </div>
                                                 <div class="row m-t">
-                                                    <div class="col-md-5" ng-show="icms.CST == 'COBRANCA_ST_10' || icms.CST == 'COBRANCA_ST_10_COM_PARTILHA' || icms.CST == 'ISENTA_COM_ST_30' || icms.CST == 'ST_REDUCAO_BC_70' || icms.CST == 'OUTRAS_COM_PARTILHA_90' || icms.CST == 'OUTROS_90'">
+                                                    <div class="col-md-5"
+                                                         ng-show="icms.CST == 'COBRANCA_ST_10' || icms.CST == 'COBRANCA_ST_10_COM_PARTILHA' || icms.CST == 'ISENTA_COM_ST_30' || icms.CST == 'ST_REDUCAO_BC_70' || icms.CST == 'OUTRAS_COM_PARTILHA_90' || icms.CST == 'OUTROS_90'">
                                                         <label>Alíquota ICMS ST</label>
-                                                        <input type="text" class="form-control" ui-percentage-mask ng-model="icms.pICMSST" />
+                                                        <input type="text"
+                                                               class="form-control"
+                                                               ui-percentage-mask
+                                                               ng-model="icms.pICMSST" />
                                                     </div>
-                                                    <div class="col-md-7" ng-show="icms.CST == 'COBRANCA_ST_10' || icms.CST == 'COBRANCA_ST_10_COM_PARTILHA' || icms.CST == 'ISENTA_COM_ST_30' || icms.CST == 'ST_REDUCAO_BC_70' || icms.CST == 'OUTRAS_COM_PARTILHA_90' || icms.CST == 'OUTROS_90'">
+                                                    <div class="col-md-7"
+                                                         ng-show="icms.CST == 'COBRANCA_ST_10' || icms.CST == 'COBRANCA_ST_10_COM_PARTILHA' || icms.CST == 'ISENTA_COM_ST_30' || icms.CST == 'ST_REDUCAO_BC_70' || icms.CST == 'OUTRAS_COM_PARTILHA_90' || icms.CST == 'OUTROS_90'">
                                                         <label>Fórmula Valor ICMS ST</label>
-                                                        <gumga-many-to-one value="icms.vICMSST" search-method="getFormulaIcms(param)" field="name" async="true" display-info="false"
-                                                            editable="false">
+                                                        <gumga-many-to-one value="icms.vICMSST"
+                                                                           search-method="getFormulaIcms(param)"
+                                                                           field="name"
+                                                                           async="true"
+                                                                           display-info="false"
+                                                                           editable="false">
                                                             <match>
                                                                 <div>{{match.model.name}}</div>
                                                             </match>
@@ -336,10 +515,15 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="row m-t" ng-show="icms.CST == 'COBRANCA_ST_10_COM_PARTILHA' || icms.CST == 'OUTRAS_COM_PARTILHA_90'">
+                                            <div class="row m-t"
+                                                 ng-show="icms.CST == 'COBRANCA_ST_10_COM_PARTILHA' || icms.CST == 'OUTRAS_COM_PARTILHA_90'">
                                                 <div class="col-md-6">
                                                     <label>UF do ICMS ST devido na operação</label>
-                                                    <select name="icmsuficmsdo" id="icmsuficmsdo" ng-model="icms.UFST" class="form-control" ng-options="obj.key as obj.label for obj in stateList"></select>
+                                                    <select name="icmsuficmsdo"
+                                                            id="icmsuficmsdo"
+                                                            ng-model="icms.UFST"
+                                                            class="form-control"
+                                                            ng-options="obj.key as obj.label for obj in stateList"></select>
                                                 </div>
                                             </div>
                                             <div ng-show="icms.CST == 'ISENTA_COM_ST_30'">
@@ -347,8 +531,12 @@
                                                     <div class="col-md-5">
                                                         <label>Valor ICMS Desonerado</label>
 
-                                                        <gumga-many-to-one value="icms.vICMSDeson" search-method="getFormulaIcms(param)" field="name" async="true" display-info="false"
-                                                            editable="false">
+                                                        <gumga-many-to-one value="icms.vICMSDeson"
+                                                                           search-method="getFormulaIcms(param)"
+                                                                           field="name"
+                                                                           async="true"
+                                                                           display-info="false"
+                                                                           editable="false">
                                                             <match>
                                                                 <div>{{match.model.name}}</div>
                                                             </match>
@@ -358,16 +546,25 @@
                                                 <div class="col-md-12 m-t">
                                                     <div class="row">
                                                         <label>Motivo da desoneração</label>
-                                                        <select name="modIcmsSetDeson" id="modIcmsSetDeson" ng-model="icms.motDesICMS" class="form-control" ng-options="obj.key as obj.label for obj in unburdeningMotiveList"></select>
+                                                        <select name="modIcmsSetDeson"
+                                                                id="modIcmsSetDeson"
+                                                                ng-model="icms.motDesICMS"
+                                                                class="form-control"
+                                                                ng-options="obj.key as obj.label for obj in unburdeningMotiveList"></select>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="row" ng-show="icms.CST == 'NAO_TRIBUTADA_41_ICMSST' || icms.CST == 'COBRADO_ANTERIORMENTE_POR_ST_60'">
+                                            <div class="row"
+                                                 ng-show="icms.CST == 'NAO_TRIBUTADA_41_ICMSST' || icms.CST == 'COBRADO_ANTERIORMENTE_POR_ST_60'">
                                                 <div class="col-md-6">
                                                     <label ng-hide="icms.CST == 'COBRADO_ANTERIORMENTE_POR_ST_60'">BC ICMS ST retido na UF remet.</label>
                                                     <label ng-show="icms.CST == 'COBRADO_ANTERIORMENTE_POR_ST_60'">BC ICMS ST retido anteriormente</label>
-                                                    <gumga-many-to-one value="icms.vBCSTRet" search-method="getFormulaIcms(param)" field="name" async="true" display-info="false"
-                                                        editable="false">
+                                                    <gumga-many-to-one value="icms.vBCSTRet"
+                                                                       search-method="getFormulaIcms(param)"
+                                                                       field="name"
+                                                                       async="true"
+                                                                       display-info="false"
+                                                                       editable="false">
                                                         <match>
                                                             <div>{{match.model.name}}</div>
                                                         </match>
@@ -377,8 +574,12 @@
                                                     <label ng-hide="icms.CST == 'COBRADO_ANTERIORMENTE_POR_ST_60'">ICMS ST retido na UF remet.</label>
                                                     <label ng-show="icms.CST == 'COBRADO_ANTERIORMENTE_POR_ST_60'">ICMS ST retido anteriormente
                                                     </label>
-                                                    <gumga-many-to-one value="icms.vICMSSTRet" search-method="getFormulaIcms(param)" field="name" async="true" display-info="false"
-                                                        editable="false">
+                                                    <gumga-many-to-one value="icms.vICMSSTRet"
+                                                                       search-method="getFormulaIcms(param)"
+                                                                       field="name"
+                                                                       async="true"
+                                                                       display-info="false"
+                                                                       editable="false">
                                                         <match>
                                                             <div>{{match.model.name}}</div>
                                                         </match>
@@ -386,17 +587,26 @@
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="col-md-5" ng-show="icms.CST == 'COBRADO_ANTERIORMENTE_POR_ST_60' ||icms.CST == 'ST_REDUCAO_BC_70' || icms.CST == 'OUTRAS_COM_PARTILHA_90' || icms.CST == 'OUTROS_90'">
+                                                <div class="col-md-5"
+                                                     ng-show="icms.CST == 'COBRADO_ANTERIORMENTE_POR_ST_60' ||icms.CST == 'ST_REDUCAO_BC_70' || icms.CST == 'OUTRAS_COM_PARTILHA_90' || icms.CST == 'OUTROS_90'">
                                                     <label>Redução ICMS ST Próprio</label>
-                                                    <input type="text" class="form-control" ui-percentage-mask ng-model="icms.pRedIMCSSTProp" />
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           ui-percentage-mask
+                                                           ng-model="icms.pRedIMCSSTProp" />
                                                 </div>
                                             </div>
-                                            <div class="row m-t" ng-show="icms.CST == 'NAO_TRIBUTADA_41_ICMSST'">
+                                            <div class="row m-t"
+                                                 ng-show="icms.CST == 'NAO_TRIBUTADA_41_ICMSST'">
                                                 <div class="col-md-6">
                                                     <label>BC ICMS ST da UF destino</label>
 
-                                                    <gumga-many-to-one value="icms.vBCSTDest" search-method="getFormulaIcms(param)" field="name" async="true" display-info="false"
-                                                        editable="false">
+                                                    <gumga-many-to-one value="icms.vBCSTDest"
+                                                                       search-method="getFormulaIcms(param)"
+                                                                       field="name"
+                                                                       async="true"
+                                                                       display-info="false"
+                                                                       editable="false">
                                                         <match>
                                                             <div>{{match.model.name}}</div>
                                                         </match>
@@ -404,8 +614,12 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label>ICMS ST da UF destino</label>
-                                                    <gumga-many-to-one value="icms.vICMSSTDest" search-method="getFormulaIcms(param)" field="name" async="true" display-info="false"
-                                                        editable="false">
+                                                    <gumga-many-to-one value="icms.vICMSSTDest"
+                                                                       search-method="getFormulaIcms(param)"
+                                                                       field="name"
+                                                                       async="true"
+                                                                       display-info="false"
+                                                                       editable="false">
                                                         <match>
                                                             <div>{{match.model.name}}</div>
                                                         </match>
@@ -414,23 +628,33 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row m-t" ng-hide="icmsNormal">
+                                    <!-- <div class="row m-t" ng-hide="icmsNormal"> -->
+                                    <div class="row m-t">
                                         <div class="col-md-6">
                                             <div ng-show="showSimples(icms)">
-                                                <div class="row " align="center">
+                                                <div class="row "
+                                                     align="center">
                                                     <h4 class="b">
                                                         ICMS</h4>
                                                 </div>
-                                                <div ng-show="icms.CSOSN === 'OUTROS_900'" class="m-b">
+                                                <div ng-show="icms.CSOSN === 'OUTROS_900'"
+                                                     class="m-b">
                                                     <div class="row">
                                                         <div class="col-md-7">
                                                             <label>Modalidade Deter. da BC ICMS</label>
-                                                            <select name="icmsModBC" ng-model="icms.modBC" class="form-control" ng-options="mod.key as mod.label for mod in modeCalculationBaseList"></select>
+                                                            <select name="icmsModBC"
+                                                                    ng-model="icms.modBC"
+                                                                    class="form-control"
+                                                                    ng-options="mod.key as mod.label for mod in modeCalculationBaseList"></select>
                                                         </div>
                                                         <div class="col-md-5">
                                                             <label>Fórmula Valor da BC ICMS</label>
-                                                            <gumga-many-to-one value="icms.vBC" search-method="getFormulaIcms(param)" field="name" async="true" display-info="false"
-                                                                editable="false">
+                                                            <gumga-many-to-one value="icms.vBC"
+                                                                               search-method="getFormulaIcms(param)"
+                                                                               field="name"
+                                                                               async="true"
+                                                                               display-info="false"
+                                                                               editable="false">
                                                                 <match>
                                                                     <div>{{match.model.name}}</div>
                                                                 </match>
@@ -440,14 +664,21 @@
                                                     <div class="row m-t">
                                                         <div class="col-md-5">
                                                             <label>Alíquota ICMS</label>
-                                                            <input type="text" class="form-control" ui-percentage-mask ng-model="icms.pICMS" />
+                                                            <input type="text"
+                                                                   class="form-control"
+                                                                   ui-percentage-mask
+                                                                   ng-model="icms.pICMS" />
                                                         </div>
                                                         <div class="col-md-7">
                                                             <label>Fórmula Valor ICMS</label>
 
 
-                                                            <gumga-many-to-one value="icms.vICMS" search-method="getFormulaIcms(param)" field="name" async="true" display-info="false"
-                                                                editable="false">
+                                                            <gumga-many-to-one value="icms.vICMS"
+                                                                               search-method="getFormulaIcms(param)"
+                                                                               field="name"
+                                                                               async="true"
+                                                                               display-info="false"
+                                                                               editable="false">
                                                                 <match>
                                                                     <div>{{match.model.name}}</div>
                                                                 </match>
@@ -457,39 +688,60 @@
                                                     <div class="row">
                                                         <div class="col-md-5 m-t container-fluid">
                                                             <label>Redução da BC ICMS</label>
-                                                            <input type="text" class="form-control" ng-model="icms.pRedBC" ui-percentage-mask/>
+                                                            <input type="text"
+                                                                   class="form-control"
+                                                                   ng-model="icms.pRedBC"
+                                                                   ui-percentage-mask/>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="row " ng-if="showAliquotaGroup(icms)">
-                                                    <div class="col-md-7" ng-show="icms.CSOSN !== 'CREDITO_101'">
+                                                <div class="row "
+                                                     ng-if="showAliquotaGroup(icms)">
+                                                    <div class="col-md-7"
+                                                         ng-show="icms.CSOSN !== 'CREDITO_101'">
                                                         <label>Alíquota aplicável de cálculo do crédito</label>
-                                                        <input type="text" class="form-control" ui-percentage-mask ng-model="icms.pCredSN" />
+                                                        <input type="text"
+                                                               class="form-control"
+                                                               ui-percentage-mask
+                                                               ng-model="icms.pCredSN" />
                                                     </div>
                                                     <div class="col-md-5">
                                                         <label>Fórmula Vl. crédito do ICMS</label>
-                                                        <gumga-many-to-one value="icms.vCredICMSSN" search-method="getFormulaIcms(param)" field="name" async="true" display-info="false"
-                                                            editable="false">
+                                                        <gumga-many-to-one value="icms.vCredICMSSN"
+                                                                           search-method="getFormulaIcms(param)"
+                                                                           field="name"
+                                                                           async="true"
+                                                                           display-info="false"
+                                                                           editable="false">
                                                             <match>
                                                                 <div>{{match.model.name}}</div>
                                                             </match>
                                                         </gumga-many-to-one>
                                                     </div>
                                                 </div>
-                                                <div class="row m-t" ng-show="isFCPVisible(icms)">
+                                                <div class="row m-t"
+                                                     ng-show="isFCPVisible(icms)">
                                                     <div class="col-md-6">
                                                         <label>Alíquota interna da UF de destino</label>
-                                                        <input type="text" class="form-control" ui-percentage-mask ng-model="icms.pICMSUFDest" />
+                                                        <input type="text"
+                                                               class="form-control"
+                                                               ui-percentage-mask
+                                                               ng-model="icms.pICMSUFDest" />
                                                     </div>
                                                     <div class="col-md-6">
                                                         <label>Perc. Fundo Comb. à Pobreza</label>
-                                                        <input type="text" class="form-control" ui-percentage-mask ng-model="icms.pFCPUFDest" />
+                                                        <input type="text"
+                                                               class="form-control"
+                                                               ui-percentage-mask
+                                                               ng-model="icms.pFCPUFDest" />
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-6" ng-show="showSimplesSt(icms)">
-                                            <div class="row" align="center">
+                                        <div class="col-md-6"
+                                             ng-show="showSimplesSt(icms)">
+                                            <div class="row"
+                                                 align="center">
                                                 <h4 class="b">
                                                     ICMS ST</h4>
                                             </div>
@@ -497,23 +749,37 @@
                                                 <div class="row">
                                                     <div class="col-md-7">
                                                         <label>Modalidade Deter. da BC ICMS ST</label>
-                                                        <select name="icmsmodBCST" ng-model="icms.modBCST" class="form-control" ng-options="modst.key as modst.label for modst in modeCalculationBaseSTList"></select>
+                                                        <select name="icmsmodBCST"
+                                                                ng-model="icms.modBCST"
+                                                                class="form-control"
+                                                                ng-options="modst.key as modst.label for modst in modeCalculationBaseSTList"></select>
                                                     </div>
                                                     <div class="col-md-5">
                                                         <label>Redução BC ICMS ST</label>
-                                                        <input type="text" class="form-control" ui-percentage-mask ng-model="icms.pRedBCST" />
+                                                        <input type="text"
+                                                               class="form-control"
+                                                               ui-percentage-mask
+                                                               ng-model="icms.pRedBCST" />
                                                     </div>
                                                 </div>
                                                 <div class="row m-t">
-                                                    <div class="col-md-5" ng-if="icms.modBCST !== 'PAUTA'">
+                                                    <div class="col-md-5"
+                                                         ng-if="icms.modBCST !== 'PAUTA'">
                                                         <label>Margem valor adic. ICMS ST</label>
-                                                        <input type="text" class="form-control" ui-percentage-mask ng-model="icms.pMVAST" />
+                                                        <input type="text"
+                                                               class="form-control"
+                                                               ui-percentage-mask
+                                                               ng-model="icms.pMVAST" />
                                                     </div>
                                                     <div class="col-md-7 pull-right">
                                                         <label>Fórmula Valor BC ICMS ST</label>
 
-                                                        <gumga-many-to-one value="icms.vBCST" search-method="getFormulaIcms(param)" field="name" async="true" display-info="false"
-                                                            editable="false">
+                                                        <gumga-many-to-one value="icms.vBCST"
+                                                                           search-method="getFormulaIcms(param)"
+                                                                           field="name"
+                                                                           async="true"
+                                                                           display-info="false"
+                                                                           editable="false">
                                                             <match>
                                                                 <div>{{match.model.name}}</div>
                                                             </match>
@@ -523,13 +789,20 @@
                                                 <div class="row m-t">
                                                     <div class="col-md-5">
                                                         <label>Alíquota ICMS ST</label>
-                                                        <input type="text" class="form-control" ui-percentage-mask ng-model="icms.pICMSST" />
+                                                        <input type="text"
+                                                               class="form-control"
+                                                               ui-percentage-mask
+                                                               ng-model="icms.pICMSST" />
                                                     </div>
                                                     <div class="col-md-7">
                                                         <label>Fórmula Valor ICMS ST</label>
 
-                                                        <gumga-many-to-one value="icms.vICMSST" search-method="getFormulaIcms(param)" field="name" async="true" display-info="false"
-                                                            editable="false">
+                                                        <gumga-many-to-one value="icms.vICMSST"
+                                                                           search-method="getFormulaIcms(param)"
+                                                                           field="name"
+                                                                           async="true"
+                                                                           display-info="false"
+                                                                           editable="false">
                                                             <match>
                                                                 <div>{{match.model.name}}</div>
                                                             </match>
@@ -537,11 +810,16 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="row" ng-show="icms.CSOSN === ''">
+                                            <div class="row"
+                                                 ng-show="icms.CSOSN === ''">
                                                 <div class="col-md-6">
                                                     <label>BC ICMS ST retido anteriormente</label>
-                                                    <gumga-many-to-one value="icms.vBCSTRet" search-method="getFormulaIcms(param)" field="name" async="true" display-info="false"
-                                                        editable="false">
+                                                    <gumga-many-to-one value="icms.vBCSTRet"
+                                                                       search-method="getFormulaIcms(param)"
+                                                                       field="name"
+                                                                       async="true"
+                                                                       display-info="false"
+                                                                       editable="false">
                                                         <match>
                                                             <div>{{match.model.name}}</div>
                                                         </match>
@@ -550,8 +828,12 @@
                                                 <div class="col-md-6">
                                                     <label>ICMS ST retido anteriormente
                                                     </label>
-                                                    <gumga-many-to-one value="icms.vICMSSTRet" search-method="getFormulaIcms(param)" field="name" async="true" display-info="false"
-                                                        editable="false">
+                                                    <gumga-many-to-one value="icms.vICMSSTRet"
+                                                                       search-method="getFormulaIcms(param)"
+                                                                       field="name"
+                                                                       async="true"
+                                                                       display-info="false"
+                                                                       editable="false">
                                                         <match>
                                                             <div>{{match.model.name}}</div>
                                                         </match>
@@ -564,38 +846,55 @@
                             </div>
                         </uib-tab>
                         <!--PIS-->
-                        <uib-tab index="1" heading="PIS">
+                        <uib-tab index="1"
+                                 heading="PIS">
                             <div>
                                 <div class="row container-fluid">
                                     <div class="row">
                                         <div class="col-md-6">
                                             <label>CST</label>
-                                            <select name="cstpis" id="cstpis" ng-model="pis.CST" class="form-control" ng-options="obj.key as obj.label for obj in cstpis"></select>
+                                            <select name="cstpis"
+                                                    id="cstpis"
+                                                    ng-model="pis.CST"
+                                                    class="form-control"
+                                                    ng-options="obj.key as obj.label for obj in cstpis"></select>
                                         </div>
                                         <div class="col-md-6">
                                             <label>Mensagem</label>
 
-                                            <gumga-many-to-one value="pis.mensagem" search-method="getMensagem(param,'PIS')" field="name" async="true" display-info="false"
-                                                editable="false">
+                                            <gumga-many-to-one value="pis.mensagem"
+                                                               search-method="getMensagem(param,'PIS')"
+                                                               field="name"
+                                                               async="true"
+                                                               display-info="false"
+                                                               editable="false">
                                                 <match>
                                                     <div>{{match.model.name}}</div>
                                                 </match>
                                             </gumga-many-to-one>
                                         </div>
                                     </div>
-                                    <div class="row m-t" ng-hide="isPisAble(pis)">
+                                    <div class="row m-t"
+                                         ng-hide="isPisAble(pis)">
                                         <div class="col-md-6">
                                             <div ng-hide="pis.CST == 'OPERACAO_TRIBUTAVEL_05'">
 
                                                 <div class="row">
-                                                    <h4 class="b" align="center">PIS</h4>
+                                                    <h4 class="b"
+                                                        align="center">PIS</h4>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-md-6" ng-hide="isPisOperationTypeUnable(pis)">
+                                                    <div class="col-md-6"
+                                                         ng-hide="isPisOperationTypeUnable(pis)">
                                                         <label>Tipo de cálculo</label>
-                                                        <select name="calculationpis" id="calculationpis" ng-model="pis.calculationType" class="form-control" ng-options="obj for obj in calculationTypes"></select>
+                                                        <select name="calculationpis"
+                                                                id="calculationpis"
+                                                                ng-model="pis.calculationType"
+                                                                class="form-control"
+                                                                ng-options="obj for obj in calculationTypes"></select>
                                                     </div>
-                                                    <div class="row" ng-show="isPisAliquotaAble(pis)">
+                                                    <div class="row"
+                                                         ng-show="isPisAliquotaAble(pis)">
                                                         <div class="col-md-12">
                                                             <div class="row">
                                                                 <div class="col-md-12">
@@ -603,7 +902,12 @@
                                                                     <div class="col-md-6">
                                                                         <label>Valor da base de cálculo</label>
 
-                                                                        <gumga-many-to-one value="pis.vBC" search-method="getFormulaPis(param)" field="name" async="true" display-info="false" editable="false">
+                                                                        <gumga-many-to-one value="pis.vBC"
+                                                                                           search-method="getFormulaPis(param)"
+                                                                                           field="name"
+                                                                                           async="true"
+                                                                                           display-info="false"
+                                                                                           editable="false">
                                                                             <match>
                                                                                 <div>{{match.model.name}}</div>
                                                                             </match>
@@ -611,7 +915,10 @@
                                                                     </div>
                                                                     <div class="col-md-6">
                                                                         <label>Alíquota (percentual)</label>
-                                                                        <input type="text" class="form-control" ui-percentage-mask ng-model="pis.pPIS" />
+                                                                        <input type="text"
+                                                                               class="form-control"
+                                                                               ui-percentage-mask
+                                                                               ng-model="pis.pPIS" />
                                                                     </div>
 
                                                                 </div>
@@ -620,7 +927,12 @@
                                                             <div class="col-md-6 m-t">
                                                                 <label>Valor do PIS</label>
 
-                                                                <gumga-many-to-one value="pis.vPIS" search-method="getFormulaPis(param)" field="name" async="true" display-info="false" editable="false">
+                                                                <gumga-many-to-one value="pis.vPIS"
+                                                                                   search-method="getFormulaPis(param)"
+                                                                                   field="name"
+                                                                                   async="true"
+                                                                                   display-info="false"
+                                                                                   editable="false">
                                                                     <match>
                                                                         <div>{{match.model.name}}</div>
                                                                     </match>
@@ -631,24 +943,35 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-6" ng-show="pis.CST === 'OPERACAO_TRIBUTAVEL_05'">
+                                        <div class="col-md-6"
+                                             ng-show="pis.CST === 'OPERACAO_TRIBUTAVEL_05'">
                                             <div class="row">
-                                                <h4 class="b" align="center">PIS ST</h4>
+                                                <h4 class="b"
+                                                    align="center">PIS ST</h4>
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <label>Tipo de cálculo</label>
-                                                    <select name="calculationpisst" id="calculationpisst" ng-model="pis.calculationTypeST" class="form-control" ng-options="obj for obj in calculationTypes"></select>
+                                                    <select name="calculationpisst"
+                                                            id="calculationpisst"
+                                                            ng-model="pis.calculationTypeST"
+                                                            class="form-control"
+                                                            ng-options="obj for obj in calculationTypes"></select>
                                                 </div>
                                             </div>
-                                            <div class="row" ng-show=" pis.calculationTypeST == 'PORCENTAGEM'">
+                                            <div class="row"
+                                                 ng-show=" pis.calculationTypeST == 'PORCENTAGEM'">
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <div class="col-md-6 m-t">
                                                             <label>Valor da base de cálculo</label>
 
-                                                            <gumga-many-to-one value="pis.vBCST" search-method="getFormulaPis(param)" field="name" async="true" display-info="false"
-                                                                editable="false">
+                                                            <gumga-many-to-one value="pis.vBCST"
+                                                                               search-method="getFormulaPis(param)"
+                                                                               field="name"
+                                                                               async="true"
+                                                                               display-info="false"
+                                                                               editable="false">
                                                                 <match>
                                                                     <div>{{match.model.name}}</div>
                                                                 </match>
@@ -656,7 +979,10 @@
                                                         </div>
                                                         <div class="col-md-6 m-t">
                                                             <label>Alíquota (percentual)</label>
-                                                            <input type="text" class="form-control" ui-percentage-mask ng-model="pis.pPISST" />
+                                                            <input type="text"
+                                                                   class="form-control"
+                                                                   ui-percentage-mask
+                                                                   ng-model="pis.pPISST" />
                                                         </div>
 
                                                     </div>
@@ -666,8 +992,12 @@
                                                         <div class="col-md-6 m-t">
                                                             <label>Valor do PIS ST</label>
 
-                                                            <gumga-many-to-one value="pis.vPISST" search-method="getFormulaPis(param)" field="name" async="true" display-info="false"
-                                                                editable="false">
+                                                            <gumga-many-to-one value="pis.vPISST"
+                                                                               search-method="getFormulaPis(param)"
+                                                                               field="name"
+                                                                               async="true"
+                                                                               display-info="false"
+                                                                               editable="false">
                                                                 <match>
                                                                     <div>{{match.model.name}}</div>
                                                                 </match>
@@ -682,44 +1012,65 @@
                             </div>
                         </uib-tab>
                         <!--COFINS-->
-                        <uib-tab index="2" heading="COFINS">
+                        <uib-tab index="2"
+                                 heading="COFINS">
                             <div class="row container-fluid">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <label>CST</label>
-                                        <select name="cstcofins" id="cstcofins" ng-model="cofins.CST" class="form-control" ng-options="obj.key as obj.label for obj in cstpis"></select>
+                                        <select name="cstcofins"
+                                                id="cstcofins"
+                                                ng-model="cofins.CST"
+                                                class="form-control"
+                                                ng-options="obj.key as obj.label for obj in cstpis"></select>
 
                                     </div>
                                     <div class="col-md-6">
                                         <label>Mensagem</label>
-                                        <gumga-many-to-one value="cofins.mensagem" search-method="getMensagem(param,'COFINS')" field="name" async="true" display-info="false"
-                                            editable="false">
+                                        <gumga-many-to-one value="cofins.mensagem"
+                                                           search-method="getMensagem(param,'COFINS')"
+                                                           field="name"
+                                                           async="true"
+                                                           display-info="false"
+                                                           editable="false">
                                             <match>
                                                 <div>{{match.model.name}}</div>
                                             </match>
                                         </gumga-many-to-one>
                                     </div>
                                 </div>
-                                <div class="row m-t" ng-hide="isCofinsAble(cofins)">
+                                <div class="row m-t"
+                                     ng-hide="isCofinsAble(cofins)">
                                     <div class="col-md-6">
                                         <div ng-hide="cofins.CST == 'OPERACAO_TRIBUTAVEL_05'">
                                             <div class="row">
-                                                <h4 class="b" align="center">COFINS</h4>
+                                                <h4 class="b"
+                                                    align="center">COFINS</h4>
                                             </div>
                                             <div class="row">
-                                                <div class="col-md-6" ng-hide="isCofinsOperationTypeUnable(cofins)">
+                                                <div class="col-md-6"
+                                                     ng-hide="isCofinsOperationTypeUnable(cofins)">
                                                     <label>Tipo de cálculo</label>
-                                                    <select name="calculationcofins" id="calculationcofins" ng-model="cofins.calculationType" class="form-control" ng-options="obj for obj in calculationTypes"></select>
+                                                    <select name="calculationcofins"
+                                                            id="calculationcofins"
+                                                            ng-model="cofins.calculationType"
+                                                            class="form-control"
+                                                            ng-options="obj for obj in calculationTypes"></select>
                                                 </div>
-                                                <div class="row" ng-show="isCofinsAliquotaAble(cofins)">
+                                                <div class="row"
+                                                     ng-show="isCofinsAliquotaAble(cofins)">
                                                     <div class="col-md-12">
                                                         <div class="row">
                                                             <div class="col-md-12">
                                                                 <div class="col-md-6 m-t">
                                                                     <label>Valor da base de cálculo</label>
 
-                                                                    <gumga-many-to-one value="cofins.vBC" search-method="getFormulaCofins(param)" field="name" async="true" display-info="false"
-                                                                        editable="false">
+                                                                    <gumga-many-to-one value="cofins.vBC"
+                                                                                       search-method="getFormulaCofins(param)"
+                                                                                       field="name"
+                                                                                       async="true"
+                                                                                       display-info="false"
+                                                                                       editable="false">
                                                                         <match>
                                                                             <div>{{match.model.name}}</div>
                                                                         </match>
@@ -727,15 +1078,22 @@
                                                                 </div>
                                                                 <div class="col-md-6 m-t">
                                                                     <label>Alíquota (percentual)</label>
-                                                                    <input type="text" class="form-control" ui-percentage-mask ng-model="cofins.pCOFINS" />
+                                                                    <input type="text"
+                                                                           class="form-control"
+                                                                           ui-percentage-mask
+                                                                           ng-model="cofins.pCOFINS" />
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6 m-t">
                                                             <label>Valor do COFINS</label>
 
-                                                            <gumga-many-to-one value="cofins.vCOFINS" search-method="getFormulaCofins(param)" field="name" async="true" display-info="false"
-                                                                editable="false">
+                                                            <gumga-many-to-one value="cofins.vCOFINS"
+                                                                               search-method="getFormulaCofins(param)"
+                                                                               field="name"
+                                                                               async="true"
+                                                                               display-info="false"
+                                                                               editable="false">
                                                                 <match>
                                                                     <div>{{match.model.name}}</div>
                                                                 </match>
@@ -746,14 +1104,20 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6" ng-show="cofins.CST === 'OPERACAO_TRIBUTAVEL_05'">
+                                    <div class="col-md-6"
+                                         ng-show="cofins.CST === 'OPERACAO_TRIBUTAVEL_05'">
                                         <div class="row">
-                                            <h4 class="b" align="center">COFINS ST</h4>
+                                            <h4 class="b"
+                                                align="center">COFINS ST</h4>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <label>Tipo de cálculo</label>
-                                                <select name="calculationcofinsst" id="calculationcofinsst" ng-model="cofins.calculationTypeST" class="form-control" ng-options="obj for obj in calculationTypes"></select>
+                                                <select name="calculationcofinsst"
+                                                        id="calculationcofinsst"
+                                                        ng-model="cofins.calculationTypeST"
+                                                        class="form-control"
+                                                        ng-options="obj for obj in calculationTypes"></select>
                                             </div>
                                         </div>
                                         <div ng-show="cofins.calculationTypeST == 'PORCENTAGEM'">
@@ -762,8 +1126,12 @@
                                                 <div class="col-md-6 m-t">
                                                     <label>Valor da base de cálculo</label>
 
-                                                    <gumga-many-to-one value="cofins.vBCST" search-method="getFormulaCofins(param)" field="name" async="true" display-info="false"
-                                                        editable="false">
+                                                    <gumga-many-to-one value="cofins.vBCST"
+                                                                       search-method="getFormulaCofins(param)"
+                                                                       field="name"
+                                                                       async="true"
+                                                                       display-info="false"
+                                                                       editable="false">
                                                         <match>
                                                             <div>{{match.model.name}}</div>
                                                         </match>
@@ -771,7 +1139,10 @@
                                                 </div>
                                                 <div class="col-md-4 m-t">
                                                     <label>Alíquota (percentual)</label>
-                                                    <input type="text" class="form-control" ui-percentage-mask ng-model="cofins.pCOFINSST" />
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           ui-percentage-mask
+                                                           ng-model="cofins.pCOFINSST" />
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -779,8 +1150,12 @@
                                                 <div class="col-md-6 m-t">
                                                     <label>Valor do COFINS ST</label>
 
-                                                    <gumga-many-to-one value="cofins.vCOFINSST" search-method="getFormulaCofins(param)" field="name" async="true" display-info="false"
-                                                        editable="false">
+                                                    <gumga-many-to-one value="cofins.vCOFINSST"
+                                                                       search-method="getFormulaCofins(param)"
+                                                                       field="name"
+                                                                       async="true"
+                                                                       display-info="false"
+                                                                       editable="false">
                                                         <match>
                                                             <div>{{match.model.name}}</div>
                                                         </match>
@@ -793,18 +1168,27 @@
                             </div>
                         </uib-tab>
                         <!--IPI-->
-                        <uib-tab index="3" heading="IPI">
+                        <uib-tab index="3"
+                                 heading="IPI">
                             <div>
                                 <div class="row container-fluid">
                                     <div class="row">
                                         <div class="col-md-4">
                                             <label>CST</label>
-                                            <select name="cstipi" id="cstipi" ng-model="ipi.CST" class="form-control" ng-options="obj.key as obj.label for obj in cstipi"></select>
+                                            <select name="cstipi"
+                                                    id="cstipi"
+                                                    ng-model="ipi.CST"
+                                                    class="form-control"
+                                                    ng-options="obj.key as obj.label for obj in cstipi"></select>
                                         </div>
                                         <div class="col-md-4">
                                             <label>Cód. Enquadramento legal do IPI</label>
-                                            <gumga-many-to-one value="ipi.enquadramentoIpi" search-method="searchEnquadramento(param)" class="gmd" field="descricao"
-                                                display-info="false" async="true">
+                                            <gumga-many-to-one value="ipi.enquadramentoIpi"
+                                                               search-method="searchEnquadramento(param)"
+                                                               class="gmd"
+                                                               field="descricao"
+                                                               display-info="false"
+                                                               async="true">
                                                 <match>
                                                     <div>{{match.model.codigo}} - {{match.model.descricao}}
                                                     </div>
@@ -813,8 +1197,12 @@
                                         </div>
                                         <div class="col-md-4">
                                             <label>Mensagem</label>
-                                            <gumga-many-to-one value="ipi.mensagem" search-method="getMensagem(param,'IPI')" field="name" async="true" display-info="false"
-                                                editable="false">
+                                            <gumga-many-to-one value="ipi.mensagem"
+                                                               search-method="getMensagem(param,'IPI')"
+                                                               field="name"
+                                                               async="true"
+                                                               display-info="false"
+                                                               editable="false">
                                                 <match>
                                                     <div>{{match.model.name}}</div>
                                                 </match>
@@ -823,11 +1211,16 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <div class="row m-t" ng-hide="isIpiAble(ipi)">
+                                            <div class="row m-t"
+                                                 ng-hide="isIpiAble(ipi)">
 
                                                 <div class="col-md-6">
                                                     <label>Tipo de cálculo</label>
-                                                    <select name="calculationipi" id="calculationipi" ng-model="ipi.ipiCalculationType" class="form-control" ng-options="obj for obj in calculationTypes"></select>
+                                                    <select name="calculationipi"
+                                                            id="calculationipi"
+                                                            ng-model="ipi.ipiCalculationType"
+                                                            class="form-control"
+                                                            ng-options="obj for obj in calculationTypes"></select>
                                                 </div>
                                                 <div ng-show="ipi.ipiCalculationType == 'PORCENTAGEM'">
                                                     <div class="row">
@@ -836,7 +1229,12 @@
                                                             <div class="col-md-6 m-t">
                                                                 <label>Valor da base de cálculo</label>
 
-                                                                <gumga-many-to-one value="ipi.vBC" search-method="getFormulaIpi(param)" field="name" async="true" display-info="false" editable="false">
+                                                                <gumga-many-to-one value="ipi.vBC"
+                                                                                   search-method="getFormulaIpi(param)"
+                                                                                   field="name"
+                                                                                   async="true"
+                                                                                   display-info="false"
+                                                                                   editable="false">
                                                                     <match>
                                                                         <div>{{match.model.name}}</div>
                                                                     </match>
@@ -844,13 +1242,21 @@
                                                             </div>
                                                             <div class="col-md-6 m-t">
                                                                 <label>Alíquota</label>
-                                                                <input type="text" class="form-control" ui-percentage-mask ng-model="ipi.pIPI" />
+                                                                <input type="text"
+                                                                       class="form-control"
+                                                                       ui-percentage-mask
+                                                                       ng-model="ipi.pIPI" />
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6 m-t">
                                                         <label>Valor do IPI</label>
-                                                        <gumga-many-to-one value="ipi.vIPI" search-method="getFormulaIpi(param)" field="name" async="true" display-info="false" editable="false">
+                                                        <gumga-many-to-one value="ipi.vIPI"
+                                                                           search-method="getFormulaIpi(param)"
+                                                                           field="name"
+                                                                           async="true"
+                                                                           display-info="false"
+                                                                           editable="false">
                                                             <match>
                                                                 <div>{{match.model.name}}</div>
                                                             </match>
@@ -868,25 +1274,38 @@
             </div>
         </div>
         <div class="row">
-            <gmd-fab force-click="false" fixed opened="!fabs" style="z-index: 99">
-                <button class="bg-accent gmd-ripple" type="button" ng-class="{ 'gmd-disabled' : blockBtnTributos(entity) || saveDisabled(entity,icms,pis,cofins,ipi) }"
-                    ng-click="update(entity,icms,pis,cofins,ipi, blockBtnTributos(entity) || saveDisabled(entity,icms,pis,cofins,ipi))">
+            <gmd-fab force-click="false"
+                     fixed
+                     opened="!fabs"
+                     style="z-index: 99">
+                <button class="bg-accent gmd-ripple"
+                        type="button"
+                        ng-disabled="!validBuddy(entity.oi, entity.id)"
+                        ng-class="{ 'gmd-disabled' : !validBuddy(entity.oi, entity.id) || blockBtnTributos(entity) || saveDisabled(entity,icms,pis,cofins,ipi) }"
+                        ng-click="update(entity,icms,pis,cofins,ipi, blockBtnTributos(entity) || saveDisabled(entity,icms,pis,cofins,ipi))">
                     <span class="material-icons">check</span>
                 </button>
                 <ul>
-                    <li class="bg-primary" ng-show="entity.id" ui-sref="taxsettings.list">
+                    <li class="bg-primary"
+                        ng-show="entity.id"
+                        ui-sref="app.taxsettings.list">
                         <span>Voltar</span>
                         <i class="material-icons gmd-ripple">keyboard_backspace</i>
                     </li>
-                    <li class="bg-primary" ng-click="clearPage()">
+                    <li class="bg-primary"
+                        ng-click="clearPage()">
                         <span>Limpar</span>
                         <i class="material-icons gmd-ripple">delete_sweep</i>
                     </li>
-                    <li class="btn-danger" ng-hide="entity.id" ui-sref="taxsettings.list">
+                    <li class="btn-danger"
+                        ng-hide="entity.id"
+                        ui-sref="app.taxsettings.list">
                         <span>Cancelar</span>
                         <i class="material-icons gmd-ripple">close</i>
                     </li>
-                    <li class="bg-primary" ng-show="entity.id" ng-click="replicateTaxSetting()">
+                    <li class="bg-primary"
+                        ng-show="entity.id"
+                        ng-click="replicateTaxSetting()">
                         <span>Replicar</span>
                         <i class="material-icons gmd-ripple">content_copy</i>
                     </li>

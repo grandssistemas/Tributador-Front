@@ -8,19 +8,19 @@ let form = require('./views/form.html');
 module.exports = angular.module('app.taxsettings', ['ui.router', 'app.taxsettings.controllers', 'app.taxsettings.services', 'api.location'])
     .config(['$stateProvider', 'apiLocation', function ($stateProvider, apiLocation) {
         $stateProvider
-            .state('taxsettings.list', {
+            .state('app.taxsettings.list', {
                 url: '/list',
                 templateUrl: list,
                 controller: 'TaxSettingsListController',
                 data: {id: 2}
             })
-            .state('taxsettings.insert', {
+            .state('app.taxsettings.insert', {
                 url: '/insert',
                 templateUrl: form,
                 controller: 'TaxSettingsFormController',
                 controllerAs: 'form',
                 data: {id: 3}, resolve: {
-                    entity: ['$stateParams', '$http', 'TaxationGroupService', '$q', function ($stateParams, $http, TaxationGroupService, $q) {
+                    entity: ['$http', 'TaxationGroupService', '$q', function ($http, TaxationGroupService, $q) {
                         var url = apiLocation + '/api/taxationgroup/new';
                         if(TaxationGroupService.newEntity){
                             return $q(function(resolve){
@@ -33,13 +33,13 @@ module.exports = angular.module('app.taxsettings', ['ui.router', 'app.taxsetting
                     }]
                 }
             })
-            .state('taxsettings.edit', {
+            .state('app.taxsettings.edit', {
                 url: '/edit/:id',
                 templateUrl: form,
                 controller: 'TaxSettingsFormController',
                 data: {id: 3}, resolve: {
-                    entity: ['$stateParams', '$http', function ($stateParams, $http) {
-                        var url = apiLocation + '/api/taxationgroup/' + $stateParams.id;
+                    entity: ['$transition$', '$http', function ($transition$, $http) {
+                        var url = apiLocation + '/api/taxationgroup/' + $transition$.params().id;
                         return $http.get(url);
                     }]
                 }

@@ -74,10 +74,10 @@ module.exports = {
                     }
                 ]
             },
-            {
-                test: /\.(jpe?g|png|gif|svg|eot|woff2|woff|ttf)$/i,
-                use: "file-loader?name=bower_components/tributador-front/resources/images/[name].[ext]"
-            },
+            // {
+            //     test: /\.(jpe?g|png|gif|svg|eot|woff2|woff|ttf)$/i,
+            //     use: "file-loader?name=bower_components/tributador-front/resources/images/[name].[ext]"
+            // },
             {
                 test: /\.html$/,
                 use: [
